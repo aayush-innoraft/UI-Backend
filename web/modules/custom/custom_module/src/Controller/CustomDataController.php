@@ -32,8 +32,8 @@ class CustomDataController extends ControllerBase
       ->execute();
 
     foreach ($result as $record) {
-      // $delete_link = '';
-
+      // Create a link to delete the record if the user has permission
+      $delete_link = [];
       if ($this->currentUser()->hasPermission('administer site configuration')) {
         $delete_url = Url::fromRoute('custom_module.delete_data', ['email' => base64_encode($record->email)]);
         $delete_link = Link::fromTextAndUrl('Delete', $delete_url)->toRenderable();

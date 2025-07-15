@@ -3,6 +3,7 @@
 /**
  * Implements hook_schema().
  */
+
 function custom_module_schema() {
   $schema['custom_module'] = [
     'description' => 'Stores user submission data.',
