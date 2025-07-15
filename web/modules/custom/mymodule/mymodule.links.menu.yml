@@ -1,0 +1,8 @@
+
+mymodule.simple_content_link:
+  title: 'Simple Content Link'
+  description: 'Link to SimpleContent() method'
+  route_name: mymodule.simple_content
+  menu_name: main
+  weight: 10
+  enabled: true

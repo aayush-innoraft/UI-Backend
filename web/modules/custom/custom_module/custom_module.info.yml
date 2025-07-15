@@ -1,0 +1,5 @@
+name: 'Custom Module'
+type: module
+description: 'A custom form module.'
+core_version_requirement: ^10
+package: Custom

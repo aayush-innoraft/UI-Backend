@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * This file demonstrates how to use hook functions.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+
+function mymodule_cron()
+{
+    \Drupal::messenger()->addMessage(\Drupal::translation()->translate("Hello from my module hook!"));
+}
+
+/**
+ * Implements hook_form_alter() .
+ */
+
+function mymodule_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)
+{
+
+    //  Change submit button text on article edit form.
+    if ($form_id == 'node_article_edit_form') {
+        $form['actions']['submit']['#value'] = \Drupal::translation()->translate("Save karegaaa, chal karle");
+    }
+  
+
+    // if ($form_id == 'node_article_form' || $form_id == 'node_article_edit_form') {
+    //     $form['custom_code'] = [
+    //         '#type' => 'textfield',
+    //         '#title' => \Drupal::translation()->translate('Enter special code'),                  
+    //         '#description' => \Drupal::translation()->translate('This is a custom field added via form alter.'),
+    //         '#maxlength' => 64,
+    //         '#required' => FALSE,
+    //     ];   
+    // }
+}

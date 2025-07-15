@@ -1,0 +1,17 @@
+custom_module.show_data:
+  path: '/custom-data'
+  defaults:
+    _controller: '\Drupal\custom_module\Controller\CustomDataController::showData'
+    _title: 'Custom Data'
+  requirements:
+    _permission: 'access content'
+
+custom_module.delete_data:
+  path: '/custom-data/delete/{email}'
+  defaults:
+    _controller: '\Drupal\custom_module\Controller\CustomDataController::deleteData'
+    _title: 'Delete Data'
+  requirements:
+    _permission: 'administer site configuration'
+
+

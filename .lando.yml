@@ -1,0 +1,4 @@
+name: uibackend
+recipe: drupal10
+config:
+  webroot: web

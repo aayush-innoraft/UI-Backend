@@ -1,0 +1,5 @@
+name: 'my first custom drupal module'
+type: module
+core_version_requirement: ^10
+description: 'code to spark my module devlopment understanding'
+pakage: 'Acquia module dev course'
