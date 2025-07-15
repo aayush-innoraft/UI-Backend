@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\custom_module\Controller;
+
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Link;
