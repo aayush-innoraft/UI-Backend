@@ -3,3 +3,4 @@ type: module
 description: 'A custom form module.'
 core_version_requirement: ^10
 package: Custom
+configure: custom_module.admin_settings

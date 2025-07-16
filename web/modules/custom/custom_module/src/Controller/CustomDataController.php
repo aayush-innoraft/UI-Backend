@@ -9,7 +9,6 @@ use Drupal\Core\Url;
 
 class CustomDataController extends ControllerBase
 {
-
   public function showData()
   {
     $header = [
@@ -18,12 +17,11 @@ class CustomDataController extends ControllerBase
       ['data' => $this->t('Email')],
       ['data' => $this->t('Gender')],
     ];
-
+     
     // If current user is admin, add the "Operations" column
     if ($this->currentUser()->hasPermission('administer site configuration')) {
       $header[] = ['data' => $this->t('Operations')];
     }
-
 
     $rows = [];
     $connection = Database::getConnection();
@@ -35,8 +33,9 @@ class CustomDataController extends ControllerBase
       // Create a link to delete the record if the user has permission
       $delete_link = [];
       if ($this->currentUser()->hasPermission('administer site configuration')) {
-        $delete_url = Url::fromRoute('custom_module.delete_data', ['email' => base64_encode($record->email)]);
+        $delete_url = Url::fromRoute('custom_module.delete', ['id' => base64_encode($record->email)]);
         $delete_link = Link::fromTextAndUrl('Delete', $delete_url)->toRenderable();
+
         $delete_link['#attributes'] = ['class' => ['button', 'button--danger']];
       }
 
@@ -50,8 +49,6 @@ class CustomDataController extends ControllerBase
         ],
       ];
     }
-
-
     return [
       '#type' => 'table',
       '#header' => $header,
@@ -67,23 +64,15 @@ class CustomDataController extends ControllerBase
   {
     // Decode the email back from URL-safe format
     $decoded_email = base64_decode($email);
-
     $connection = Database::getConnection();
     $deleted = $connection->delete('custom_module')
       ->condition('email', $decoded_email)
       ->execute();
-
     if ($deleted) {
       $this->messenger()->addMessage($this->t('Record with email %email has been deleted.', ['%email' => $decoded_email]));
     } else {
       $this->messenger()->addError($this->t('Record with email %email was not found.', ['%email' => $decoded_email]));
     }
-
     return $this->redirect('custom_module.show_data');
   }
 }
-
-
-
-
-

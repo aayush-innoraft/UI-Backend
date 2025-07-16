@@ -12,7 +12,14 @@ public function getFormId() {
   return 'custom_form';
 }
 
-
+/**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return [
+      'custom_module.admin_settings',
+    ];
+  }
   public function buildForm(array $form, FormStateInterface $form_state) {
     $node = \Drupal::routeMatch()->getParameter('node');
     $nid = $node ? $node->id() : 0;

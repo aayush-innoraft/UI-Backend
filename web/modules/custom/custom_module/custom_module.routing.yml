@@ -6,12 +6,22 @@ custom_module.show_data:
   requirements:
     _permission: 'access content'
 
-custom_module.delete_data:
-  path: '/custom-data/delete/{email}'
+
+custom_module.admin_settings:
+  path: '/admin/config/custom_module'
   defaults:
-    _controller: '\Drupal\custom_module\Controller\CustomDataController::deleteData'
-    _title: 'Delete Data'
+    _form: '\Drupal\custom_module\Form\CustomForm'
+    _title: 'Custom Module configuration screen'
   requirements:
     _permission: 'administer site configuration'
 
 
+custom_module.delete:
+  path: '/custom-module/{id}/delete'
+  defaults: 
+    _form: '\Drupal\custom_module\Form\ConfirmDeleteForm'
+    _title: 'Confirm Deletion'
+  requirements: 
+    _permission: 'administer site configuration'
+    id: ^.+$
+  
