@@ -24,4 +24,23 @@ custom_module.delete:
   requirements: 
     _permission: 'administer site configuration'
     id: ^.+$
-  
+
+custom_module.restricted_page:
+  path: '/restricted-page'
+  defaults:
+    _controller: '\Drupal\custom_module\Controller\Restricted::restrictedContent'
+    _title: 'Restricted Page'
+  requirements:
+    _custom_access: '\Drupal\custom_module\Controller\Restricted::accessCheck'
+    _role: 'administrator + content_editor'
+
+
+
+custom_module.campaign_value:
+  path: '/campaign/value/{number}'
+  defaults:
+    _controller: '\Drupal\custom_module\Controller\CampaignController::showValue'
+    _title: 'Campaign Value'
+  requirements:
+    number: '\d+'  
+    _permission: 'access content'

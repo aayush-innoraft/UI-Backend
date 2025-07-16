@@ -1,0 +1,20 @@
+uuid: b3b4e4c8-9159-43e5-9a32-97e1d50759e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_module
+  theme:
+    - olivero
+id: olivero_mycustomformblock
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: my_form_block
+settings:
+  id: my_form_block
+  label: 'My Custom Form Block'
+  label_display: '0'
+  provider: custom_module
+visibility: {  }

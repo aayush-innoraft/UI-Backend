@@ -1,0 +1,35 @@
+uuid: 1c977ff4-ca76-4df3-86a5-b7db49534b7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.menu-1
+  module:
+    - system
+    - user
+  theme:
+    - olivero
+id: olivero_menu_1
+theme: olivero
+region: secondary_menu
+weight: 0
+provider: null
+plugin: 'system_menu_block:menu-1'
+settings:
+  id: 'system_menu_block:menu-1'
+  label: menu_1
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
+      content_editor: content_editor
+      administrator: administrator
