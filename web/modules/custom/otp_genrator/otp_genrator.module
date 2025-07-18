@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_mail().
+ */
+function otp_genrator_mail($key, &$message, $params) {
+  if ($key === 'otp_mail') {
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['message'];
+  }
+}

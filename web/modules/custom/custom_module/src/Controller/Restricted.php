@@ -5,6 +5,7 @@ namespace Drupal\custom_module\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\node\Plugin\views\filter\Access;
 
 class Restricted extends ControllerBase
 {
@@ -12,6 +13,7 @@ class Restricted extends ControllerBase
   /**
    * Returns the content for the restricted page.
    */
+
   public function restrictedContent()
   {
     return [
@@ -28,6 +30,7 @@ class Restricted extends ControllerBase
    * @return \Drupal\Core\Access\AccessResult
    *   The access result.
    */
+
   public static function accessCheck(AccountInterface $account)
   {
     // Example condition: user must have the 'access the custom page' permission.
@@ -39,7 +42,6 @@ class Restricted extends ControllerBase
     if (in_array('editor', $account->getRoles())) {
       return AccessResult::forbidden();
     }
-
     // Default deny.
     return AccessResult::forbidden();
   }

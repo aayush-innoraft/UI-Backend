@@ -1,0 +1,7 @@
+name: 'my block'
+type: module
+description: 'Provides a custom welcome block and welcome page'
+core_version_requirement: ^10
+package: Custom
+dependencies:
+  - drupal:block

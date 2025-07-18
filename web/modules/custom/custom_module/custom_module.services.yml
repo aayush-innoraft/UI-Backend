@@ -3,3 +3,8 @@ services:
     class: Drupal\custom_module\EventSubscriber\RouteAccessSubscriber
     tags:
       - { name: routing.route_subscriber }
+
+
+  custom_module.my_custom_service:
+    class: Drupal\custom_module\Service\CurrentUserService
+    arguments: ['@current_user']

@@ -1,0 +1,24 @@
+otp_genrator.genrate_otp:
+  path: '/genrate-otp'
+  defaults:
+    _controller: '\Drupal\otp_genrator\Controller\OtpController::genrateAndSendOtp'
+    _title: 'Genrate OTP'
+  requirements:
+    _permission: 'access content'
+
+otp_genrate_form:
+  path: '/otp-genrate/form'
+  defaults:
+    _title: 'genrate_otp'
+    _form: 'Drupal\otp_genrator\Form\SubmitForm'
+  requirements:
+    _permission: 'access content'
+
+
+otp_genrator.verify_otp:
+  path: '/verify-otp'
+  defaults:
+    _form: '\Drupal\otp_genrator\Form\OtpVerifyForm'
+    _title: 'Verify OTP'
+  requirements:
+    _permission: 'access content'

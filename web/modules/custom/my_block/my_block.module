@@ -1,0 +1,12 @@
+<?php
+
+use Drupal\Core\Routing\TrustedRedirectResponse;
+
+/**
+ * Implements hook_user_login().
+ */
+function my_block_user_login(&$edit, $account) {
+  $response = new TrustedRedirectResponse('/welcome');
+  $response->send();
+  exit();
+}

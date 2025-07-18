@@ -44,3 +44,12 @@ custom_module.campaign_value:
   requirements:
     number: '\d+'  
     _permission: 'access content'
+
+    
+custom_module.custom_service:
+  path: '/custom-service'
+  defaults:
+    _controller: '\Drupal\custom_module\Controller\Userinfo::gettingUserInfo'
+    _title: 'Custom Service'
+  requirements:
+    _permission: 'access content'

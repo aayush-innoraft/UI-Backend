@@ -1,0 +1,7 @@
+my_block.welcome:
+  path: '/welcome'
+  defaults:
+    _controller: '\Drupal\my_block\Controller\WelcomePageController::welcome'
+    _title: 'Welcome'
+  requirements:
+    _permission: 'access content'
