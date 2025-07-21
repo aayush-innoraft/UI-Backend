@@ -18,7 +18,7 @@ class RGBBackgroundFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $hex = sprintf("#%02x%02x%02x", $item->r, $item->g, $item->b);
       $elements[$delta] = [
-        '#markup' => '<div style="background-color:' . $hex . '; color:#fff; padding:5px;">Color: ' . $hex . '</div>',
+        '#markup' => '<div style="width:50px;height:50px;background-color:' . $hex . ';"></div>',
       ];
     }
     return $elements;

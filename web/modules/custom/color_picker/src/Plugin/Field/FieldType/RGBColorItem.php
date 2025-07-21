@@ -7,17 +7,15 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Plugin implements rgb color
- *
  * @FieldType(
  *   id = "rgb_color",
  *   label = @Translation("RGB Color"),
- *   description = @Translation("Stores RGB color as separate R, G, B values."),
- *   default_widget = "rgb_hex_widget",
+ *   description = @Translation("Stores RGB color as R, G, B values."),
+ *   default_widget = "rgb_values_widget",
  *   default_formatter = "rgb_static_text_formatter"
  * )
  */
-class rgbcolor extends FieldItemBase {
+class RGBColorItem extends FieldItemBase {
 
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     return [
@@ -35,12 +33,10 @@ class rgbcolor extends FieldItemBase {
            $this->get('b')->getValue() === NULL;
   }
 
-public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
+  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['r'] = DataDefinition::create('integer')->setLabel('Red');
     $properties['g'] = DataDefinition::create('integer')->setLabel('Green');
     $properties['b'] = DataDefinition::create('integer')->setLabel('Blue');
     return $properties;
-}
-
-
+  }
 }

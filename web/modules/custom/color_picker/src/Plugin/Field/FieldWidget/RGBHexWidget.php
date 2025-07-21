@@ -15,13 +15,15 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class RGBHexWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $hex_value = sprintf("#%02x%02x%02x", $items[$delta]->r ?? 0, $items[$delta]->g ?? 0, $items[$delta]->b ?? 0);
+
     $element['hex'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Hex Code (#RRGGBB)'),
-      '#default_value' => sprintf("#%02x%02x%02x", $items[$delta]->r ?? 0, $items[$delta]->g ?? 0, $items[$delta]->b ?? 0),
+      '#title' => $this->t('Hex Code'),
+      '#default_value' => $hex_value,
       '#maxlength' => 7,
-      '#size' => 7,
     ];
+
     return $element;
   }
 }

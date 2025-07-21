@@ -1,0 +1,9 @@
+<?php
+function color_picker_field_access($operation, $field_definition, $account) {
+  if ($field_definition->getType() == 'rgb_color') {
+    if (!$account->hasPermission('administer site configuration')) {
+      return FALSE;
+    }
+  }
+  return TRUE;
+}

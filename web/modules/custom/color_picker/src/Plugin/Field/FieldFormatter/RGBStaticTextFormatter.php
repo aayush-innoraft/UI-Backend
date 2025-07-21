@@ -8,7 +8,7 @@ use Drupal\Core\Field\FormatterBase;
 /**
  * @FieldFormatter(
  *   id = "rgb_static_text_formatter",
- *   label = @Translation("RGB Hex Text"),
+ *   label = @Translation("RGB Static Text"),
  *   field_types = {"rgb_color"}
  * )
  */
