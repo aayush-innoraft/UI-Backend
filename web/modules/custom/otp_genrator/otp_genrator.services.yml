@@ -1,4 +1,4 @@
 services:
   otp_genrator.otp_service:
-    class: Drupal\otp_genrator\Service\otpService
+    class: Drupal\otp_genrator\Service\OtpService
     arguments: ['@plugin.manager.mail', '@logger.factory']

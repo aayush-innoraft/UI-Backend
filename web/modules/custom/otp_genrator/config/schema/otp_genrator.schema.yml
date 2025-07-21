@@ -1,0 +1,18 @@
+
+# Default value.
+field.value.otp_genrator_media:
+  type: mapping
+  label: Default value
+  mapping:
+    enter_name:
+      type: text
+      label: enter-name
+    email:
+      type: email
+      label: email
+    media:
+      type: boolean
+      label: media
+    image:
+      type: telephone
+      label: Value 4

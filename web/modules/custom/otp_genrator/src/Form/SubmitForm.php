@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\otp_genrator\Service\OtpService;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\user\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;  // Added missing import
 
 /**
  * Provides an OTP generator form.
@@ -21,7 +22,7 @@ final class SubmitForm extends FormBase {
     $this->currentUser = $currentUser;
   }
 
-  public static function create($container) {
+  public static function create(ContainerInterface $container) {  // Added type hint
     return new static(
       $container->get('otp_genrator.otp_service'),
       $container->get('current_user')
@@ -51,29 +52,33 @@ final class SubmitForm extends FormBase {
     return $form;
   }
 
-public function generateOtpCallback(array &$form, FormStateInterface $form_state) {
-  try {
-    $otp = $this->otpService->generateOtp();
+  public function generateOtpCallback(array &$form, FormStateInterface $form_state) {
+    try {
+      $otp = $this->otpService->generateOtp();
 
-    $account = User::load($this->currentUser->id());
-    $email = $account ? $account->getEmail() : NULL;
+      // Store OTP in tempstore.
+      $tempstore = \Drupal::service('user.private_tempstore')->get('otp_genrator');
+      $tempstore->set('user_otp', $otp);
 
-    if ($email) {
-      $this->otpService->sendOtpEmail($email, $otp);
-      $form['otp_message']['#markup'] = '<div id="otp-message">OTP generated and sent to your email: ' . $email . '</div>';
+      $account = User::load($this->currentUser->id());
+      
+      if ($account && $account->getEmail()) {
+        $email = $account->getEmail();
+        $this->otpService->sendOtpEmail($email, $otp);
+        $form['otp_message']['#markup'] = '<div id="otp-message">OTP generated and sent to your email: ' . $email . '</div>';
+      }
+      else {
+        \Drupal::logger('otp_genrator')->error('Current user has no valid email address.');
+        $form['otp_message']['#markup'] = '<div id="otp-message">Unable to find user email.</div>';
+      }
     }
-    else {
-      $form['otp_message']['#markup'] = '<div id="otp-message">Unable to find user email.</div>';
+    catch (\Throwable $e) {
+      \Drupal::logger('otp_genrator')->error('Exception while generating OTP: @message', ['@message' => $e->getMessage()]);
+      $form['otp_message']['#markup'] = '<div id="otp-message">Error generating OTP: ' . $e->getMessage() . '</div>';
     }
-  }
-  catch (\Exception $e) {
-    \Drupal::logger('otp_genrator')->error('Error generating OTP: @message', ['@message' => $e->getMessage()]);
-    $form['otp_message']['#markup'] = '<div id="otp-message">Error generating OTP.</div>';
-  }
 
-  return $form['otp_message'];
-}
-
+    return $form['otp_message'];
+  }
 
   public function submitForm(array &$form, FormStateInterface $form_state): void {}
 }

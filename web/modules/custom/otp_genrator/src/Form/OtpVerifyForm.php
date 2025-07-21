@@ -32,6 +32,7 @@ class OtpVerifyForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $entered_otp = $form_state->getValue('otp');
 
+    // Fixed: Use consistent tempstore service
     $tempstore = \Drupal::service('user.private_tempstore')->get('otp_genrator');
     $stored_otp = $tempstore->get('user_otp');
 

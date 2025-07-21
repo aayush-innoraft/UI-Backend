@@ -1,0 +1,5 @@
+name: Color Picker
+type: module
+description: 'provides a custom color picker functionality'
+core_version_requirement: ^10
+pakage: custom
