@@ -1,0 +1,15 @@
+entity.movie.settings:
+  path: '/admin/structure/movie'
+  defaults:
+    _form: '\Drupal\movie\Form\MovieSettingsForm'
+    _title: 'Movie'
+  requirements:
+    _permission: 'administer movie'
+
+entity.award_winning_movie.collection:
+  path: '/admin/config/movie/award'
+  defaults:
+    _entity_list: 'award_winning_movie'
+    _title: 'Award Winning Movies'
+  requirements:
+    _permission: 'administer site configuration'

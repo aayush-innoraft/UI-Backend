@@ -1,0 +1,13 @@
+uuid: 8ca876a9-7ec0-4b99-b452-8222569a8113
+langcode: en
+status: true
+dependencies:
+  module:
+    - movie
+_core:
+  default_config_hash: MexUKymCKykHy-kxha1DhMrhB4x9yVKHkz5cRhFwbso
+id: movie_save_action
+label: 'Save movies'
+type: movie
+plugin: 'entity:save_action:movie'
+configuration: {  }

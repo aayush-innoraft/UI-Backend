@@ -1,0 +1,18 @@
+entity.movie.settings:
+  title: 'Movie'
+  description: 'Configure a Movie entity type.'
+  route_name:  entity.movie.settings
+  parent: system.admin_structure
+
+entity.movie.collection:
+  title: 'Movies'
+  description: 'List of movies.'
+  route_name: entity.movie.collection
+  parent: system.admin_content
+
+award_winning_movie.admin:
+  title: 'Award Winning Movies'
+  description: 'Manage award-winning movies by year.'
+  parent: system.admin_config_system
+  route_name: entity.award_winning_movie.collection
+  weight: 100

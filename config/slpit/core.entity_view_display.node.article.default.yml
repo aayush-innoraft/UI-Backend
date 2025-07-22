@@ -6,13 +6,13 @@ dependencies:
     - core.entity_view_display.comment.comment.default
     - field.field.node.article.body
     - field.field.node.article.comment
-    - field.field.node.article.field_image
+    - field.field.node.article.field_color_code
+    - field.field.node.article.field_rgb
     - field.field.node.article.field_tags
-    - image.style.wide
     - node.type.article
   module:
+    - color_picker
     - comment
-    - image
     - text
     - user
 _core:
@@ -38,16 +38,19 @@ content:
     third_party_settings: {  }
     weight: 110
     region: content
-  field_image:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: wide
-      image_loading:
-        attribute: eager
+  field_color_code:
+    type: color_default
+    label: inline
+    settings: {  }
     third_party_settings: {  }
-    weight: -1
+    weight: 111
+    region: content
+  field_rgb:
+    type: rgb_static_text_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 112
     region: content
   field_tags:
     type: entity_reference_label

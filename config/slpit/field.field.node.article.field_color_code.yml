@@ -1,0 +1,21 @@
+uuid: d11f020f-d236-448c-9063-3b57d19efce4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_color_code
+    - node.type.article
+  module:
+    - color_picker
+id: node.article.field_color_code
+field_name: field_color_code
+entity_type: node
+bundle: article
+label: color-code
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: color

@@ -1,0 +1,103 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+
+
+/**
+ * Implements hook_install().
+ */
+function movie_install() {
+  // 1. Create content type "Movie" if it doesn't exist.
+  if (!NodeType::load('movie')) {
+    $movie_type = NodeType::create([
+      'type' => 'movie',
+      'name' => 'Movie',
+      'description' => 'A content type for Movies.',
+      'display_submitted' => TRUE,
+    ]);
+    $movie_type->save();
+    \Drupal::logger('movie')->notice('Movie content type created.');
+  }
+
+  // 2. Add 'Movie Price' field storage.
+  if (!FieldStorageConfig::loadByName('node', 'field_movie_price')) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_movie_price',
+      'entity_type' => 'node',
+      'type' => 'decimal',
+      'settings' => ['precision' => 10, 'scale' => 2],
+    ])->save();
+  }
+
+  // Attach 'Movie Price' field to Movie content type.
+  if (!FieldConfig::loadByName('node', 'movie', 'field_movie_price')) {
+    FieldConfig::create([
+      'field_name' => 'field_movie_price',
+      'entity_type' => 'node',
+      'bundle' => 'movie',
+      'label' => 'Movie Price',
+    ])->save();
+  }
+
+  // 3. Add 'Movie Image' field storage.
+  if (!FieldStorageConfig::loadByName('node', 'field_movie_image')) {
+    FieldStorageConfig::create([
+      'field_name' => 'field_movie_image',
+      'entity_type' => 'node',
+      'type' => 'image',
+    ])->save();
+  }
+
+  // Attach 'Movie Image' field to Movie content type.
+  if (!FieldConfig::loadByName('node', 'movie', 'field_movie_image')) {
+    FieldConfig::create([
+      'field_name' => 'field_movie_image',
+      'entity_type' => 'node',
+      'bundle' => 'movie',
+      'label' => 'Movie Image',
+    ])->save();
+  }
+
+  // 4. Add 'Body' field (Description).
+  if (!FieldConfig::loadByName('node', 'movie', 'body')) {
+    FieldConfig::create([
+      'field_name' => 'body',
+      'entity_type' => 'node',
+      'bundle' => 'movie',
+      'label' => 'Description',
+    ])->save();
+  }
+
+  // 5. Configure Form Display.
+  $form_display = EntityFormDisplay::load('node.movie.default') ?: EntityFormDisplay::create([
+    'targetEntityType' => 'node',
+    'bundle' => 'movie',
+    'mode' => 'default',
+    'status' => TRUE,
+  ]);
+
+  $form_display
+    ->setComponent('title', ['type' => 'string_textfield', 'weight' => 0])
+    ->setComponent('body', ['type' => 'text_textarea_with_summary', 'weight' => 1])
+    ->setComponent('field_movie_price', ['type' => 'number', 'weight' => 2])
+    ->setComponent('field_movie_image', ['type' => 'image_image', 'weight' => 3])
+    ->save();
+
+  // 6. Configure View Display.
+  $view_display = EntityViewDisplay::load('node.movie.default') ?: EntityViewDisplay::create([
+    'targetEntityType' => 'node',
+    'bundle' => 'movie',
+    'mode' => 'default',
+    'status' => TRUE,
+  ]);
+
+  $view_display
+    ->setComponent('body', ['label' => 'above', 'type' => 'text_default', 'weight' => 1])
+    ->setComponent('field_movie_price', ['label' => 'above', 'type' => 'number_decimal', 'weight' => 2])
+    ->setComponent('field_movie_image', ['label' => 'above', 'type' => 'image', 'weight' => 3])
+    ->save();
+}

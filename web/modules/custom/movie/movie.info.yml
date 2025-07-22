@@ -1,0 +1,7 @@
+name: Movie Module
+type: module
+description: 'Creates Movie content type with fields'
+core_version_requirement: ^8 || ^9 || ^10
+package: Custom
+dependencies:
+  - node
