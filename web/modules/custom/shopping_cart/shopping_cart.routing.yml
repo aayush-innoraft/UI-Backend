@@ -1,0 +1,16 @@
+shopping_cart.products:
+  path: '/shopping-cart/products'
+  defaults:
+    _controller: '\Drupal\shopping_cart\Controller\CartController::productList'
+    _title: 'Product List'
+  requirements:
+    _permission: 'access content'
+
+shopping_cart.add:
+  path: '/shopping-cart/add/{id}'
+  defaults:
+    _controller: '\Drupal\shopping_cart\Controller\CartController::addToCart'
+    _title: 'Add to Cart'
+  requirements:
+    _permission: 'access content'
+    id: \d+

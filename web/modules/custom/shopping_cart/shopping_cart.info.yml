@@ -1,0 +1,7 @@
+name: 'Shopping Cart'
+type: module
+description: 'Provides a shopping cart functionality for the e-commerce platform.'
+core_version_requirement: ^9 || ^10
+package: Custom
+dependencies:
+  - drupal:system
