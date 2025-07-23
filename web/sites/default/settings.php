@@ -904,5 +904,5 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
-$settings['config_sync_directory'] = '../config/slpit';
+$settings['config_sync_directory'] = '../config/sync';
 $config['system.logging']['error_level'] = 'verbose';

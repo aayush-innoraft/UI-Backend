@@ -25,6 +25,11 @@
 /web/sites/*/settings.local.php
 /web/sites/*/settings*.php
 /web/sites/*/services*.yml
+/web/sites/*/files/
+/web/sites/*/files/css/
+/web/sites/*/files/js/
+/web/sites/*/private/
+
 # Ignore Drupal's file directory
 /web/sites/*/files/
 /web/sites/*/private/
