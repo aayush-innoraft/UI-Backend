@@ -14,3 +14,19 @@ shopping_cart.add:
   requirements:
     _permission: 'access content'
     id: \d+
+
+shopping_cart.view:
+  path: '/shopping-cart/view'
+  defaults:
+    _controller: '\Drupal\shopping_cart\Controller\CartController::viewCart'
+    _title: 'View Cart'
+  requirements:
+    _permission: 'access content'
+
+shopping_cart.checkout:
+  path: '/shopping-cart/checkout'
+  defaults:
+    _form: '\Drupal\shopping_cart\Form\CheckoutForm'
+    _title: 'Checkout'
+  requirements:
+    _permission: 'access content'

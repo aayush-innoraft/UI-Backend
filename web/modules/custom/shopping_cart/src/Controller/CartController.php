@@ -10,7 +10,8 @@ class CartController extends ControllerBase {
   /**
    * Displays a simple list of products.
    */
-public function productList() {
+  public function productList() {
+    // Define a list of products.
     $items = [
         ['id' => 1, 'name' => 'T-shirt'],
         ['id' => 2, 'name' => 'Cap'],
@@ -26,6 +27,7 @@ public function productList() {
         ['id' => 12, 'name' => 'Wallet'],
     ];
 
+    // Prepare the output as an HTML list.
     $output = "<h2>Product List</h2><ul>";
     foreach ($items as $item) {
         $link = '/shopping-cart/add/' . $item['id'];
@@ -35,26 +37,59 @@ public function productList() {
 
     return [
         '#markup' => $output,
+         '#cache' => [
+            'max-age' => 0, // This will prevent the caching of this page.
+        ],
     ];
-}
-
+  }
 
   /**
-   * Adds a product to session cart.
+   * Adds a product to the shopping cart.
    */
   public function addToCart($id, Request $request) {
     $session = $request->getSession();
     $cart = $session->get('shopping_cart', []);
 
+    // Check if the product already exists in the cart and increment its quantity.
     if (!isset($cart[$id])) {
-      $cart[$id] = 1;
+      $cart[$id] = 1; // Add the product with quantity 1.
     } else {
-      $cart[$id]++;
+      $cart[$id]++; // Increment the quantity if the product is already in the cart.
     }
 
+    // Save the updated cart back to the session.
     $session->set('shopping_cart', $cart);
     $this->messenger()->addMessage("Item $id added to cart.");
 
     return new RedirectResponse('/shopping-cart/products');
+  }
+
+  /**
+   * Displays the current cart contents.
+   */
+  public function viewCart() {
+    // Get the shopping cart from the session.
+    $session = \Drupal::request()->getSession();
+    $cart = $session->get('shopping_cart', []);
+
+    // Build the cart display.
+    $output = "<h2>Your Cart</h2>";
+    if (empty($cart)) {
+      $output .= "<p>Your cart is empty.</p>";
+    } else {
+      $output .= "<ul>";
+      foreach ($cart as $id => $quantity) {
+        $output .= "<li>Item $id - Quantity: $quantity</li>";
+      }
+      $output .= "</ul>";
+      $output .= "<a href='/shopping-cart/checkout'>Go to Checkout</a>";
+    }
+
+    return [
+      '#markup' => $output,
+       '#cache' => [
+            'max-age' => 0, // This will prevent the caching of this page.
+        ],
+    ];
   }
 }
