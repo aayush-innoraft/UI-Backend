@@ -13,3 +13,11 @@ entity.award_winning_movie.collection:
     _title: 'Award Winning Movies'
   requirements:
     _permission: 'administer site configuration'
+    
+movie_config_form:
+  path: '/admin/reports/movie-budget'
+  defaults:
+    _form: '\Drupal\movie\Form\BudgetConfigForm'
+    _title: 'Movie Budget Settings'
+  requirements:
+    _permission: 'administer site configuration'

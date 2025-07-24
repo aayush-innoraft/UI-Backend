@@ -1,0 +1,8 @@
+uuid: b1bfbe48-0911-4789-9d20-38393f64d0a3
+langcode: en
+status: true
+dependencies: {  }
+id: view-cart
+label: 'view cart'
+description: ''
+locked: false

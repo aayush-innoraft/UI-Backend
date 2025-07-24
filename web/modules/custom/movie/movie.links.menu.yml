@@ -16,3 +16,11 @@ award_winning_movie.admin:
   parent: system.admin_config_system
   route_name: entity.award_winning_movie.collection
   weight: 100
+ 
+movie_config_form:
+  title: 'Movie Budget Settings'
+  description: 'Configure budget amount for movie'
+  parent: system.admin_reports
+  route_name: movie_config_form
+  weight: 100
+ 

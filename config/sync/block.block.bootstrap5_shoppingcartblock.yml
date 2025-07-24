@@ -1,0 +1,20 @@
+uuid: 13a0da35-a6de-4f6e-a15d-67069fa0c0d8
+langcode: en
+status: true
+dependencies:
+  module:
+    - shopping_cart
+  theme:
+    - bootstrap5
+id: bootstrap5_shoppingcartblock
+theme: bootstrap5
+region: sidebar_second
+weight: 0
+provider: null
+plugin: shopping_cart_block
+settings:
+  id: shopping_cart_block
+  label: 'Shopping Cart Block'
+  label_display: '0'
+  provider: shopping_cart
+visibility: {  }

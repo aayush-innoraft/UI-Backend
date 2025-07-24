@@ -9,3 +9,6 @@ delete movie:
   title: 'Delete movie'
 create movie:
   title: 'Create movie'
+access movie  settings:
+  title: 'Access movie budget settings'
+  

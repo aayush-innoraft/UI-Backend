@@ -1,0 +1,20 @@
+uuid: 1f90390d-680f-4aa8-82f6-b0e94562cc9c
+langcode: en
+status: true
+dependencies:
+  module:
+    - shopping_cart
+  theme:
+    - olivero
+id: olivero_shoppingcartblock
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: shopping_cart_block
+settings:
+  id: shopping_cart_block
+  label: 'Shopping Cart Block'
+  label_display: visible
+  provider: shopping_cart
+visibility: {  }

@@ -1,0 +1,43 @@
+<?php
+
+use Drupal\node\NodeInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Field\FieldItemInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for node entities.
+ */
+function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Ensure this is only applied to 'movie' content type.
+  if ($entity->bundle() === 'movie') {
+
+    // Safely get the field_movie_price value.
+    $field = $entity->get('field_movie_price');
+    
+    if (!$field->isEmpty()) {
+      /** @var \Drupal\Core\Field\FieldItemInterface $item */
+      $item = $field->first();
+      $movie_price = $item->get('value')->getValue();
+
+      // Get configured budget amount.
+      $budget_amount = \Drupal::config('movie.settings')->get('budget_amount');
+
+      // Determine the message based on comparison.
+      if ($movie_price < $budget_amount) {
+        $text = 'The movie is under budget';
+      }
+      elseif ($movie_price > $budget_amount) {
+        $text = 'The movie is over budget';
+      }
+      else {
+        $text = 'The movie is within budget';
+      }
+
+      // Prepend the message to the node content.
+      $build['movie_budget_notice'] = [
+        '#markup' => '<div class="movie-budget-status" style="padding: 10px; background: #e2e2e2; font-weight: bold;">' . $text . '</div>',
+        '#weight' => -10,
+      ];
+    }
+  }
+}

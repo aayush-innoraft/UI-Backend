@@ -1,0 +1,8 @@
+uuid: 45a7fa48-e0e8-4272-9e74-2c0e8e2b3870
+langcode: en
+status: true
+dependencies: {  }
+id: shopping-menu
+label: shopping-menu
+description: ''
+locked: false

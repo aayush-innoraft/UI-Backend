@@ -1,0 +1,25 @@
+uuid: 8457aeee-8501-4060-a90f-a9c71cc024e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.view-cart
+  module:
+    - system
+  theme:
+    - bootstrap5
+id: bootstrap5_viewcart
+theme: bootstrap5
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'system_menu_block:view-cart'
+settings:
+  id: 'system_menu_block:view-cart'
+  label: 'view cart'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

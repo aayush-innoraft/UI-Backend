@@ -1,0 +1,25 @@
+uuid: a0de9e48-ac4d-4ef0-b32c-fd9480cc6852
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.shopping-menu
+  module:
+    - system
+  theme:
+    - bootstrap5
+id: bootstrap5_shoppingmenu
+theme: bootstrap5
+region: nav_main
+weight: 0
+provider: null
+plugin: 'system_menu_block:shopping-menu'
+settings:
+  id: 'system_menu_block:shopping-menu'
+  label: shopping-menu
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }
