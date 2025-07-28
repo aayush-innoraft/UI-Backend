@@ -1,14 +1,13 @@
 administer movie:
-  title: 'Administer movies'
+  title: "Administer movies"
   restrict access: true
 view movie:
-  title: 'View movie'
+  title: "View movie"
 edit movie:
-  title: 'Edit movie'
+  title: "Edit movie"
 delete movie:
-  title: 'Delete movie'
+  title: "Delete movie"
 create movie:
-  title: 'Create movie'
+  title: "Create movie"
 access movie  settings:
-  title: 'Access movie budget settings'
-  
+  title: "Access movie budget settings"

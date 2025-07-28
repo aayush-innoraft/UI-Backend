@@ -5,6 +5,8 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\user\Entity\User;
+use Drupal\movie\Event\MovieBudgetCompareEvent;
+
 
 /**
  * Implements hook_ENTITY_TYPE_view() for node entities.
@@ -54,5 +56,12 @@ function movie_node_insert(NodeInterface $node)
     if ($user) {
         $username = $user->getDisplayName();
         \Drupal::cache()->set('movie.last_created_user', $username, Cache::PERMANENT);
+    }
+}
+
+function movie_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode){
+    if($entity instanceof NodeInterface && $entity->bundle()=== 'movie'){
+        $event = new MovieBudgetCompareEvent($entity);
+        \Drupal::service('event_dispatcher')->dispatch($event , MovieBudgetCompareEvent::NAME);
     }
 }

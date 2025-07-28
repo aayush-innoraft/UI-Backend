@@ -1,0 +1,6 @@
+services:
+  movie.movie_budget_compare_subscriber:
+    class: Drupal\movie\EventSubscriber\MovieBudgetCompareSubscriber
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }
