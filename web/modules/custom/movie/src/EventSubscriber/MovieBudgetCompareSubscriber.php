@@ -12,6 +12,7 @@ class MovieBudgetCompareSubscriber implements EventSubscriberInterface {
   public function __construct(ConfigFactoryInterface $configFactory) {
     $this->configFactory = $configFactory;
   }
+
   public static function getSubscribedEvents(): array {
     return [
       MovieBudgetCompareEvent::NAME => 'onMovieBudgetCompare',
@@ -19,20 +20,23 @@ class MovieBudgetCompareSubscriber implements EventSubscriberInterface {
   }
 
   public function onMovieBudgetCompare(MovieBudgetCompareEvent $event) {
-    $node = $event->getNode();
+  $node = $event->getNode();
 
-    $budget = $this->configFactory->get('movie.settings')->get('budget');
-    $price = $node->get('field_movie_price')->value;
+  $budget = (float) ($this->configFactory->get('movie.settings')->get('budget') ?? 0);
+  $price = (float) ($node->get('field_movie_price')->value ?? 0);
 
-    $message = '';
-    if ($price < $budget) {
-      $message = 'The movie is under budget';
-    } elseif ($price > $budget) {
-      $message = 'The movie is over budget';
-    } else {
-      $message = 'The movie is within budget';
-    }
+  \Drupal::logger('movie')->notice("Movie budget check: Price = $price, Budget = $budget");
 
-    \Drupal::messenger()->addMessage($message);
+  $message = '';
+  if ($price < $budget) {
+    $message = 'The movie is under budget';
+  } elseif ($price > $budget) {
+    $message = 'The movie is over budget';
+  } else {
+    $message = 'The movie is within budget';
   }
+
+  \Drupal::messenger()->addMessage($message);
+}
+
 }

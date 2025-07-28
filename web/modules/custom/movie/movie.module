@@ -13,21 +13,13 @@ use Drupal\movie\Event\MovieBudgetCompareEvent;
  */
 function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode)
 {
-    // Ensure this is only applied to 'movie' content type.
     if ($entity->bundle() === 'movie') {
-
-        // Safely get the field_movie_price value.
         $field = $entity->get('field_movie_price');
-
         if (!$field->isEmpty()) {
             /** @var \Drupal\Core\Field\FieldItemInterface $item */
             $item = $field->first();
             $movie_price = $item->get('value')->getValue();
-
-            // Get configured budget amount.
             $budget_amount = \Drupal::config('movie.settings')->get('budget_amount');
-
-            // Determine the message based on comparison.
             if ($movie_price < $budget_amount) {
                 $text = 'The movie is under budget';
             } elseif ($movie_price > $budget_amount) {
@@ -35,10 +27,9 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
             } else {
                 $text = 'The movie is within budget';
             }
-
-            // Prepend the message to the node content.
             $build['movie_budget_notice'] = [
-                '#markup' => '<div class="movie-budget-status" style="padding: 10px; background: #e2e2e2; font-weight: bold;">' . $text . '</div>',
+                '#title' => ' movie_budget_notice',
+                '#markup' => '<div>' . $text . '</div>',
                 '#weight' => -10,
             ];
         }
@@ -59,9 +50,10 @@ function movie_node_insert(NodeInterface $node)
     }
 }
 
-function movie_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode){
-    if($entity instanceof NodeInterface && $entity->bundle()=== 'movie'){
+function movie_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode)
+{
+    if ($entity instanceof NodeInterface && $entity->bundle() === 'movie') {
         $event = new MovieBudgetCompareEvent($entity);
-        \Drupal::service('event_dispatcher')->dispatch($event , MovieBudgetCompareEvent::NAME);
+        \Drupal::service('event_dispatcher')->dispatch($event, MovieBudgetCompareEvent::NAME);
     }
 }
