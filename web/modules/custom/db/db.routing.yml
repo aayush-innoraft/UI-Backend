@@ -1,0 +1,7 @@
+db.dashboard:
+  path: '/events-dashboard'
+  defaults:
+    _controller: '\Drupal\db\Controller\EventDashboardController::dashboard'
+    _title: 'Events Dashboard'
+  requirements:
+    _permission: 'access content'
