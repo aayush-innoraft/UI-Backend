@@ -4,6 +4,7 @@ namespace Drupal\movie\EventSubscriber;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\movie\Event\MovieBudgetCompareEvent;
+use Drupal\Core\Form\FormInterface;
 
 class MovieBudgetCompareSubscriber implements EventSubscriberInterface {
 
@@ -20,10 +21,10 @@ class MovieBudgetCompareSubscriber implements EventSubscriberInterface {
   }
 
   public function onMovieBudgetCompare(MovieBudgetCompareEvent $event) {
-  $node = $event->getNode();
+  $node = $event->getNode(); 
 
-  $budget = (float) ($this->configFactory->get('movie.settings')->get('budget') ?? 0);
-  $price = (float) ($node->get('field_movie_price')->value ?? 0);
+  $budget = (float) ($this->configFactory->get('movie.settings')->get('budget') );
+  $price = (float) ($node->get('field_movie_price')->value );
 
   \Drupal::logger('movie')->notice("Movie budget check: Price = $price, Budget = $budget");
 

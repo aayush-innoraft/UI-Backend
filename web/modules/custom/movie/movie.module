@@ -11,29 +11,31 @@ use Drupal\movie\Event\MovieBudgetCompareEvent;
 /**
  * Implements hook_ENTITY_TYPE_view() for node entities.
  */
-function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode)
-{
-    if ($entity->bundle() === 'movie') {
-        $field = $entity->get('field_movie_price');
-        if (!$field->isEmpty()) {
-            /** @var \Drupal\Core\Field\FieldItemInterface $item */
-            $item = $field->first();
-            $movie_price = $item->get('value')->getValue();
-            $budget_amount = \Drupal::config('movie.settings')->get('budget_amount');
-            if ($movie_price < $budget_amount) {
-                $text = 'The movie is under budget';
-            } elseif ($movie_price > $budget_amount) {
-                $text = 'The movie is over budget';
-            } else {
-                $text = 'The movie is within budget';
-            }
-            $build['movie_budget_notice'] = [
-                '#title' => ' movie_budget_notice',
-                '#markup' => '<div>' . $text . '</div>',
-                '#weight' => -10,
-            ];
-        }
+function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->bundle() === 'movie') {
+    $field = $entity->get('field_movie_price');
+    if (!$field->isEmpty()) {
+      $movie_price = (float) $field->value;
+
+      // Fetch budget value from config.
+      $budget = (float) \Drupal::config('movie.settings')->get('budget');
+
+      // Determine budget status.
+      if ($movie_price < $budget) {
+        $text = 'The movie is under budget';
+      } elseif ($movie_price > $budget) {
+        $text = 'The movie is over budget';
+      } else {
+        $text = 'The movie is within budget';
+      }
+
+      // Add message to node view.
+      $build['movie_budget_notice'] = [
+        '#markup' => '<div class="movie-budget-notice">' . $text . '</div>',
+        '#weight' => -10,
+      ];
     }
+  }
 }
 
 /**

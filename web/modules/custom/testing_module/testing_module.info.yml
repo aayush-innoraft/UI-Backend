@@ -1,0 +1,5 @@
+name: TESTING Module
+type: module
+description: 'testing'
+core_version_requirement: ^9 || ^10
+package: Custom

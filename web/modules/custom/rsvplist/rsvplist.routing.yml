@@ -14,3 +14,12 @@ rsvplist.report:
     _title: 'List of RSVPs'
   requirements:
     _permission: 'access rsvplist report'
+
+
+rsvplist.view_form:
+  path: '/rsvplist/view_form'
+  defaults:
+    _form: '\Drupal\rsvplist\Form\RSVPForm'
+    _title: 'RSVP Form'
+  requirements:
+    _permission: 'administer rsvplist'

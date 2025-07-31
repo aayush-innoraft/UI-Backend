@@ -14,17 +14,17 @@ class BudgetConfigForm extends ConfigFormBase{
     }
 public function buildForm(array $form, FormStateInterface $form_state){
     $config = $this->config('movie.settings');
-    $form['budget_amount'] =[
+    $form['budget'] =[
      '#type'=> 'number',
      '#title'=> $this->t('Budget Amount'),
-     '#default_value' => $config->get('budget_amount'),
+     '#default_value' => $config->get('budget'),
      '#required'=> TRUE,
     ];
     return parent::buildForm($form,$form_state);
 }
 public function submitForm(array &$form, FormStateInterface $form_state){
     $this->config('movie.settings')
-        ->set('budget_amount' , $form_state->getValue('budget_amount'))
+        ->set('budget' , $form_state->getValue('budget'))
         ->save();
         parent::submitForm($form,$form_state);
 }

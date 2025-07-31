@@ -1,0 +1,23 @@
+testing_module.first_content:
+  path: '/testing/first-content'
+  defaults:
+    _controller: '\Drupal\testing_module\Controller\FirstController::firstContent'
+    _title: 'First Content'
+  requirements:
+    _permission: 'access content'
+
+testing_module.second_content:
+  path: '/testing/{name_1}/{name_2}'
+  defaults:
+    _controller: '\Drupal\testing_module\Controller\FirstController::dynamicContent'
+    _title: 'Dynamic Content'
+  requirements:
+    _permission: 'access content'
+
+testing_module.display_form:
+  path: '/testing/display-form'
+  defaults:
+    _form: '\Drupal\testing_module\Form\CustomUserForm'
+    _title: 'Display Form'
+  requirements:
+    _permission: 'access content'
