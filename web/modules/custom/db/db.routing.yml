@@ -5,3 +5,11 @@ db.dashboard:
     _title: 'Events Dashboard'
   requirements:
     _permission: 'access content'
+
+db.term_lookup_form:
+  path: '/term-lookup'
+  defaults:
+    _form: '\Drupal\db\Form\TermLookupForm'
+    _title: 'Term Lookup'
+  requirements:
+    _permission: 'access content'  
