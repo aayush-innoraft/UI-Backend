@@ -15,6 +15,7 @@ module:
   contextual: 0
   custom_module: 0
   datetime: 0
+  db: 0
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
@@ -37,13 +38,13 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
-  rsvplist: 0
   search: 0
   shopping_cart: 0
   shortcut: 0
   smtp: 0
   system: 0
   taxonomy: 0
+  testing_module: 0
   text: 0
   toolbar: 0
   update: 0
@@ -56,4 +57,5 @@ theme:
   claro: 0
   stable9: 0
   bootstrap5: 0
+  mystart: 0
 profile: standard
