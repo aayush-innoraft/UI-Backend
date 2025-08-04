@@ -64,11 +64,10 @@ class TermLookupForm extends FormBase
         \Drupal::messenger()->addMessage("🔑 Term UUID: $uuid");
 
         // 3. Query nodes using this term
-        // ⚠️ Replace 'field_tags' with the actual taxonomy reference field name on your nodes
         $query = \Drupal::entityQuery('node')
             ->accessCheck(TRUE)
             ->condition('status', 1)
-            ->condition('field_taggs', $tid);  // Change this to your actual taxonomy field
+            ->condition('field_taggs', $tid);
 
         $nids = $query->execute();
 
