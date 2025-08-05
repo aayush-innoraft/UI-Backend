@@ -41,7 +41,7 @@ export function compileJs() {
 // Watch task
 export function watchFiles() {
   browserSync.init({
-    proxy: 'http://uibackend.lando.site.test', 
+    proxy: 'https://uibackend.lando.site', 
   });
   gulp.watch(paths.scss, compileScss);
   gulp.watch(paths.js, compileJs);

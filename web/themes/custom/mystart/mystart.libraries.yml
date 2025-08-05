@@ -3,3 +3,12 @@ global-styling:
   css:
     theme:
       css/style.css: {}
+
+mystart-js:
+  version: 1.x
+  js:
+    js/mystart.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

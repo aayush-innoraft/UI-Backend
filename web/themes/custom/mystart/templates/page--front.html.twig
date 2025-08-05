@@ -6,23 +6,18 @@
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
   </head>
-
   <body{{ attributes }}>
  {{ attach_library('mystart/global-styling') }}
-
-
+ {{ attach_library('mystart/mystart-js') }}
     <header>
       <h1>My first custom theme</h1>
     </header>
-
     <main role="main">
       {{ page.content }}
     </main>
-
     <footer>
       <p>2025 mystart theme</p>
     </footer>
-
     <js-bottom-placeholder token="{{ placeholder_token }}">
   </body>
 </html>
