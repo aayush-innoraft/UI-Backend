@@ -30,3 +30,12 @@ shopping_cart.checkout:
     _title: 'Checkout'
   requirements:
     _permission: 'access content'
+
+shopping_cart.remove_from_cart:
+  path: '/shopping-cart/remove/{id}'
+  defaults:
+    _controller: '\Drupal\shopping_cart\Controller\CartController::removeFromCart'
+    _title: 'Remove from Cart'
+  requirements:
+    _permission: 'access content'
+    id: \d+

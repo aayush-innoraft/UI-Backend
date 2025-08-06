@@ -1,0 +1,25 @@
+uuid: fd0b0ea5-9f54-405e-b6e4-4a1471c34386
+langcode: en
+status: true
+dependencies:
+  module:
+    - movie
+    - system
+  theme:
+    - mystart
+id: mystart_lastnodecreator_2
+theme: mystart
+region: footer
+weight: 0
+provider: null
+plugin: last_user_block
+settings:
+  id: last_user_block
+  label: 'Last Node Creator'
+  label_display: visible
+  provider: movie
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "\r\n"

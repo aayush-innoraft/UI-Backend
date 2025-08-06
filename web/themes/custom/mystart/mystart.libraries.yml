@@ -12,3 +12,4 @@ mystart-js:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+  

@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\shopping_cart\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -8,38 +9,43 @@ use Symfony\Component\HttpFoundation\Request;
 class CartController extends ControllerBase {
 
   /**
-   * Displays a simple list of products.
+   * Returns the list of products with names and prices.
+   */
+  private function getProducts() {
+    return [
+      1 => ['name' => 'T-shirt', 'price' => 499],
+      2 => ['name' => 'Cap', 'price' => 299],
+      3 => ['name' => 'Shoes', 'price' => 1999],
+      4 => ['name' => 'Jacket', 'price' => 2499],
+      5 => ['name' => 'Watch', 'price' => 1499],
+      6 => ['name' => 'Sunglasses', 'price' => 899],
+      7 => ['name' => 'Jeans', 'price' => 1099],
+      8 => ['name' => 'Hoodie', 'price' => 1299],
+      9 => ['name' => 'Backpack', 'price' => 1599],
+      10 => ['name' => 'Sneakers', 'price' => 2199],
+      11 => ['name' => 'Hat', 'price' => 349],
+      12 => ['name' => 'Wallet', 'price' => 799],
+    ];
+  }
+
+  /**
+   * Displays the list of products.
    */
   public function productList() {
-    // Define a list of products.
-    $items = [
-        ['id' => 1, 'name' => 'T-shirt'],
-        ['id' => 2, 'name' => 'Cap'],
-        ['id' => 3, 'name' => 'Shoes'],
-        ['id' => 4, 'name' => 'Jacket'],
-        ['id' => 5, 'name' => 'Watch'],
-        ['id' => 6, 'name' => 'Sunglasses'],
-        ['id' => 7, 'name' => 'Jeans'],
-        ['id' => 8, 'name' => 'Hoodie'],
-        ['id' => 9, 'name' => 'Backpack'],
-        ['id' => 10, 'name' => 'Sneakers'],
-        ['id' => 11, 'name' => 'Hat'],
-        ['id' => 12, 'name' => 'Wallet'],
-    ];
+    $products = $this->getProducts();
 
-    // Prepare the output as an HTML list.
-    $output = "<h2>Product List</h2><ul>";
-    foreach ($items as $item) {
-        $link = '/shopping-cart/add/' . $item['id'];
-        $output .= "<li>{$item['name']} <a href='$link'>Add to cart</a></li>";
+    $output = "<h2>🛒 Product List</h2><ul>";
+    foreach ($products as $id => $info) {
+      $name = $info['name'];
+      $price = $info['price'];
+      $link = "/shopping-cart/add/{$id}";
+      $output .= "<li>{$name} - ₹{$price} <a href='{$link}'>Add to cart</a></li>";
     }
     $output .= "</ul>";
 
     return [
-        '#markup' => $output,
-         '#cache' => [
-            'max-age' => 0, // This will prevent the caching of this page.
-        ],
+      '#markup' => $output,
+      '#cache' => ['max-age' => 0],
     ];
   }
 
@@ -47,49 +53,85 @@ class CartController extends ControllerBase {
    * Adds a product to the shopping cart.
    */
   public function addToCart($id, Request $request) {
+    $products = $this->getProducts();
+
+    if (!isset($products[$id])) {
+      $this->messenger()->addError("Invalid product.");
+      return new RedirectResponse('/shopping-cart/products');
+    }
+
     $session = $request->getSession();
     $cart = $session->get('shopping_cart', []);
 
-    // Check if the product already exists in the cart and increment its quantity.
+    // Add or update product quantity.
     if (!isset($cart[$id])) {
-      $cart[$id] = 1; // Add the product with quantity 1.
+      $cart[$id] = 1;
     } else {
-      $cart[$id]++; // Increment the quantity if the product is already in the cart.
+      $cart[$id]++;
     }
 
-    // Save the updated cart back to the session.
     $session->set('shopping_cart', $cart);
-    $this->messenger()->addMessage("Item $id added to cart.");
+    $this->messenger()->addMessage("✅ {$products[$id]['name']} added to cart.");
 
     return new RedirectResponse('/shopping-cart/products');
   }
 
   /**
-   * Displays the current cart contents.
+   * Removes a product from the shopping cart.
+   */
+  public function removeFromCart($id, Request $request) {
+    $session = $request->getSession();
+    $cart = $session->get('shopping_cart', []);
+
+    if (isset($cart[$id])) {
+      unset($cart[$id]);
+      $session->set('shopping_cart', $cart);
+      $this->messenger()->addMessage("❌ Product removed from cart.");
+    } else {
+      $this->messenger()->addWarning("Product not found in cart.");
+    }
+
+    return new RedirectResponse('/shopping-cart/view');
+  }
+
+  /**
+   * Shows cart contents and total price.
    */
   public function viewCart() {
-    // Get the shopping cart from the session.
+    $products = $this->getProducts();
     $session = \Drupal::request()->getSession();
     $cart = $session->get('shopping_cart', []);
 
-    // Build the cart display.
-    $output = "<h2>Your Cart</h2>";
+    $output = "<h2>🛍️ Your Cart</h2>";
+    $total = 0;
+
     if (empty($cart)) {
       $output .= "<p>Your cart is empty.</p>";
     } else {
       $output .= "<ul>";
       foreach ($cart as $id => $quantity) {
-        $output .= "<li>Item $id - Quantity: $quantity</li>";
+        if (isset($products[$id])) {
+          $name = $products[$id]['name'];
+          $price = $products[$id]['price'];
+          $item_total = $price * $quantity;
+          $total += $item_total;
+
+          $remove_link = "/shopping-cart/remove/{$id}";
+          $output .= "<li>{$name} - ₹{$price} x {$quantity} = <strong>₹{$item_total}</strong>
+            <a href='{$remove_link}' style='color:red; margin-left:10px;'>❌ Remove</a></li>";
+        } else {
+          $output .= "<li>Unknown item x {$quantity}</li>";
+        }
       }
       $output .= "</ul>";
+      $output .= "<p><strong>🧾 Total Amount: ₹{$total}</strong></p>";
       $output .= "<a href='/shopping-cart/checkout'>Go to Checkout</a>";
     }
 
     return [
       '#markup' => $output,
-       '#cache' => [
-            'max-age' => 0, // This will prevent the caching of this page.
-        ],
+      '#cache' => ['max-age' => 0],
     ];
   }
+
 }

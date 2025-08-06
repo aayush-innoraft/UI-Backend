@@ -28,7 +28,7 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
       } else {
         $text = 'The movie is within budget';
       }
-
+   
       // Add message to node view.
       $build['movie_budget_notice'] = [
         '#markup' => '<div class="movie-budget-notice">' . $text . '</div>',
@@ -41,16 +41,18 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
 /**
  * Implements hook_node_insert().
  */
-function movie_node_insert(NodeInterface $node)
-{
+function movie_node_insert(NodeInterface $node) {
+  if ($node->bundle() === 'movie') {
     $uid = $node->getOwnerId();
     $user = User::load($uid);
 
     if ($user) {
-        $username = $user->getDisplayName();
-        \Drupal::cache()->set('movie.last_created_user', $username, Cache::PERMANENT);
+      $username = $user->getDisplayName();
+      \Drupal::cache()->set('movie.last_created_user', $username, Cache::PERMANENT);
     }
+  }
 }
+
 
 function movie_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode)
 {
