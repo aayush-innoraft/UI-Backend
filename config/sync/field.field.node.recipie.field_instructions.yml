@@ -1,0 +1,19 @@
+uuid: 013476d6-6753-4af4-8c2c-f5c1b20a195b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_instructions
+    - node.type.recipie
+id: node.recipie.field_instructions
+field_name: field_instructions
+entity_type: node
+bundle: recipie
+label: Instructions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

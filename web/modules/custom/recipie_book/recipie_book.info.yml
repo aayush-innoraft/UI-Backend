@@ -1,0 +1,5 @@
+name: Recipie Book
+type: module
+description: 'Provides a custom page for listing recipies'
+core_version_requirement: ^10
+pakage: custom

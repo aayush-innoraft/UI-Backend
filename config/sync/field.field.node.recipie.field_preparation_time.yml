@@ -1,0 +1,23 @@
+uuid: 4c858620-347a-4739-a2ed-beb310e1f479
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_preparation_time
+    - node.type.recipie
+id: node.recipie.field_preparation_time
+field_name: field_preparation_time
+entity_type: node
+bundle: recipie
+label: 'Preparation Time '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: Minutes
+field_type: decimal

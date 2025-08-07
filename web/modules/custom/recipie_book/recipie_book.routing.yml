@@ -1,0 +1,7 @@
+recipie_book.listing_page:
+  path: '/recipies'
+  defaults:
+    _controller: '\Drupal\recipie_book\Controller\RecipieBookController::listpage'
+    _title: 'Our Recipie Collection'
+  requirements:
+    _permission: 'access content'
