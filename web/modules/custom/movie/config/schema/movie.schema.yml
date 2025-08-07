@@ -1,0 +1,7 @@
+views.style.movie_all_movie:
+  type: views_style
+  label: 'all-movie'
+  mapping:
+    wrapper_class:
+      type: string
+      label: 'Wrapper class'

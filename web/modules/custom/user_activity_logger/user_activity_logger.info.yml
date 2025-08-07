@@ -1,0 +1,7 @@
+name: 'User Activity Logger'
+type: module
+description: "logs user activities like login and logout"
+core_version_requirement: ^10
+pakage: Custom
+dependencies: 
+  - user

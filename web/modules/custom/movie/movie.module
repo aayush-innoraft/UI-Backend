@@ -2,25 +2,28 @@
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Cache\Cache;
 use Drupal\user\Entity\User;
 use Drupal\movie\Event\MovieBudgetCompareEvent;
-
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\Sql;
 
 /**
  * Implements hook_ENTITY_TYPE_view() for node entities.
  */
-function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplayInterface $display, $view_mode)
+{
   if ($entity->bundle() === 'movie') {
     $field = $entity->get('field_movie_price');
     if (!$field->isEmpty()) {
       $movie_price = (float) $field->value;
 
-      // Fetch budget value from config.
       $budget = (float) \Drupal::config('movie.settings')->get('budget');
 
-      // Determine budget status.
+      // Budget comparison text.
       if ($movie_price < $budget) {
         $text = 'The movie is under budget';
       } elseif ($movie_price > $budget) {
@@ -28,8 +31,8 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
       } else {
         $text = 'The movie is within budget';
       }
-   
-      // Add message to node view.
+
+      // Display message on node page.
       $build['movie_budget_notice'] = [
         '#markup' => '<div class="movie-budget-notice">' . $text . '</div>',
         '#weight' => -10,
@@ -41,23 +44,97 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
 /**
  * Implements hook_node_insert().
  */
-function movie_node_insert(NodeInterface $node) {
+function movie_node_insert(NodeInterface $node)
+{
   if ($node->bundle() === 'movie') {
     $uid = $node->getOwnerId();
     $user = User::load($uid);
-
     if ($user) {
-      $username = $user->getDisplayName();
-      \Drupal::cache()->set('movie.last_created_user', $username, Cache::PERMANENT);
+      \Drupal::cache()->set('movie.last_created_user', $user->getDisplayName(), Cache::PERMANENT);
     }
   }
 }
 
-
-function movie_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode)
+/**
+ * Implements hook_entity_view().
+ */
+function movie_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode)
 {
-    if ($entity instanceof NodeInterface && $entity->bundle() === 'movie') {
-        $event = new MovieBudgetCompareEvent($entity);
-        \Drupal::service('event_dispatcher')->dispatch($event, MovieBudgetCompareEvent::NAME);
+  if ($entity instanceof NodeInterface && $entity->bundle() === 'movie') {
+    $event = new MovieBudgetCompareEvent($entity);
+    \Drupal::service('event_dispatcher')->dispatch($event, MovieBudgetCompareEvent::NAME);
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+/**
+ * Implements hook_views_query_alter().
+ *
+ * This hook should only be used for dynamic query changes that cannot be
+ * configured in the Views UI. For static sorting, configure it directly in the
+ * view's "SORT CRITERIA" section.
+ */
+function movie_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\QueryPluginBase $query)
+{
+  if ($view->id() === 'all_movies' && $view->current_display === 'all_movies') {
+    // Ensure we are dealing with a SQL query.
+    if ($query instanceof \Drupal\views\Plugin\views\query\Sql) {
+      \Drupal::logger('movie')->notice('movie_views_query_alter is correctly triggered for view "all_movies" and display "page_1".');
+      $query->orderby = [];
+      $query->addOrderBy('node_field_data', 'title', 'ASC');
     }
+  }
+}
+
+/**
+ * Implements hook_views_pre_build().
+ */
+
+function movie_views_pre_build(ViewExecutable $view)
+{
+  if ($view->id() === 'all_movies' && $view->current_display === 'all_movies') {
+    \Drupal::logger('movie')->notice('movie_views_pre_build triggered');
+
+    $display_handler = $view->display_handler;
+
+
+    $relationships = $display_handler->getOption('relationships') ?? [];
+    $relationships['uid'] = [
+      'id' => 'uid',
+      'table' => 'node_field_data',
+      'field' => 'uid',
+      'relationship' => 'none',
+      'plugin_id' => 'standard',
+      'label' => 'Author',
+      'required' => FALSE,
+    ];
+    $display_handler->setOption('relationships', $relationships);
+
+
+    $fields = $display_handler->getOption('fields') ?? [];
+
+    $fields['author_name'] = [
+      'id' => 'name',
+      'table' => 'users_field_data',
+      'field' => 'name',
+      'relationship' => 'uid',
+      'plugin_id' => 'standard',
+      'label' => 'Author Name',
+      'exclude' => FALSE,
+    ];
+
+    $fields['author_uid'] = [
+      'id' => 'uid',
+      'table' => 'node_field_data',
+      'field' => 'uid',
+      'relationship' => 'none',
+      'plugin_id' => 'standard',
+      'label' => 'Author UID',
+      'exclude' => FALSE,
+    ];
+
+    $display_handler->setOption('fields', $fields);
+  }
 }
