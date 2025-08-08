@@ -29,7 +29,6 @@ function trying_cron_cron() {
     'title' => 'tryCron ' . date('Y-m-d H:i:s'),
   ]);
   $node->save();
-
   \Drupal::logger('trying_cron')->notice('Node created with title: @title', [
     '@title' => $node->label(),
   ]);

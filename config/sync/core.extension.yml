@@ -39,6 +39,7 @@ module:
   path: 0
   path_alias: 0
   recipie_book: 0
+  reset_password_email_otp: 0
   search: 0
   shopping_cart: 0
   shortcut: 0
@@ -48,9 +49,9 @@ module:
   testing_module: 0
   text: 0
   toolbar: 0
+  trying_cron: 0
   update: 0
   user: 0
-  user_activity_logger: 0
   views_ui: 0
   views: 10
   standard: 1000
