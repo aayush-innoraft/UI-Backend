@@ -1,0 +1,5 @@
+name: Trying Cron
+type: module
+description: ' A custom functionality to test cron'
+core_version_requirement: ^9 || ^10
+package: custom

@@ -27,16 +27,15 @@ function user_activity_logger_schema()
                 'not null' => TRUE,
             ],
             'entity_type' => [
-                'description' => 'Entity type if applicable',
                 'type' => 'varchar',
-                'length' => 32,
+                'length' => 64,
                 'not null' => FALSE,
             ],
             'entity_id' => [
-                'type' => 'varchar',
-                'length' => 255,
-                'not null' => TRUE,
+                'type' => 'int',
+                'not null' => FALSE,
             ],
+
             'ip_address' => [
                 'description' => 'IP address',
                 'type' => 'varchar',

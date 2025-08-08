@@ -22,6 +22,7 @@
         "drupal/core-recommended": "^10.5",
         "drupal/devel": "^5.4",
         "drupal/paragraphs": "^1.19",
+        "drupal/reset_password_email_otp": "^1.0",
         "drupal/smtp": "^1.4",
         "drush/drush": "^12.5"
     },
