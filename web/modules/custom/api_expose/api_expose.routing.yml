@@ -1,0 +1,9 @@
+api_expose.movies_api:
+  path: '/api/movies'
+  defaults: 
+    _controller: '\Drupal\api_expose\Controller\MovieApiController::getAllMovies'
+    _title: 'Movies Api'
+  requirements: 
+    _permission: 'access content'
+  options:
+    _format: 'json'

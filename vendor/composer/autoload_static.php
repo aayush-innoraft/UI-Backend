@@ -35,6 +35,10 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
             'phootwork\\lang\\' => 15,
             'phootwork\\collection\\' => 21,
         ),
+        'V' => 
+        array (
+            'VariableAnalysis\\' => 17,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -71,6 +75,7 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'SlevomatCodingStandard\\' => 23,
             'SelfUpdate\\' => 11,
         ),
         'R' => 
@@ -88,7 +93,9 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'Peast\\' => 6,
+            'PHPStan\\PhpDocParser\\' => 21,
             'PHPMailer\\PHPMailer\\' => 20,
+            'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 57,
         ),
         'M' => 
         array (
@@ -117,6 +124,8 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
             'Drupal\\Composer\\Plugin\\ProjectMessage\\' => 38,
             'Drupal\\Component\\' => 17,
+            'Drupal\\' => 7,
+            'DrupalPractice\\' => 15,
             'DrupalFinder\\' => 13,
             'DrupalCodeGenerator\\' => 20,
             'Doctrine\\Persistence\\' => 21,
@@ -156,6 +165,10 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
         'phootwork\\collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phootwork/collection',
+        ),
+        'VariableAnalysis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sirbrillig/phpcs-variable-analysis/VariableAnalysis',
         ),
         'Twig\\' => 
         array (
@@ -281,6 +294,10 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
+        'SlevomatCodingStandard\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slevomat/coding-standard/SlevomatCodingStandard',
+        ),
         'SelfUpdate\\' => 
         array (
             0 => __DIR__ . '/..' . '/consolidation/self-update/src',
@@ -326,9 +343,17 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
         array (
             0 => __DIR__ . '/..' . '/mck89/peast/lib/Peast',
         ),
+        'PHPStan\\PhpDocParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
         'Masterminds\\' => 
         array (
@@ -381,6 +406,14 @@ class ComposerStaticInit44033c99252b62cff2d1cf9c5baebcc8
         'Drupal\\Component\\' => 
         array (
             0 => __DIR__ . '/../..' . '/web/core/lib/Drupal/Component',
+        ),
+        'Drupal\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drupal/coder/coder_sniffer/Drupal',
+        ),
+        'DrupalPractice\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drupal/coder/coder_sniffer/DrupalPractice',
         ),
         'DrupalFinder\\' => 
         array (

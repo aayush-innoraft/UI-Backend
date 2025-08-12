@@ -1,11 +1,14 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\node\Entity\NodeType;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
-
 
 /**
  * Implements hook_install().

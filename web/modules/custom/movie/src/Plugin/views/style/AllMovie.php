@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 
 /**
- * all-movie style plugin.
+ * All-movie style plugin.
  *
  * @ViewsStyle(
  *   id = "movie_all_movie",

@@ -23,4 +23,3 @@ movie_config_form:
   parent: system.admin_reports
   route_name: movie_config_form
   weight: 100
- 

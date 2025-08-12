@@ -22,7 +22,7 @@ function trying_cron_cron() {
     $type->save();
     \Drupal::logger('trying_cron')->notice('Content type "tryCron" created.');
   }
-
+  
   // Create a node of type 'tryCron'.
   $node = Node::create([
     'type' => 'tryCron',

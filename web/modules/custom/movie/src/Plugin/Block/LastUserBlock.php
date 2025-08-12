@@ -1,9 +1,8 @@
 <?php
+
 namespace Drupal\movie\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Cache\Cache;
-use Drupal\Core\Session\AccountInterface;
 
 /**
  * Provides a block to show the last content creator's name.
@@ -14,6 +13,7 @@ use Drupal\Core\Session\AccountInterface;
  * )
  */
 class LastUserBlock extends BlockBase {
+
   /**
    * {@inheritdoc}
    */
@@ -29,4 +29,5 @@ class LastUserBlock extends BlockBase {
       ]),
     ];
   }
+
 }

@@ -1,18 +1,27 @@
 <?php
+
 namespace Drupal\movie\Event;
- use symfony\Contracts\EventDispatcher\Event;
- use Drupal\node\NodeInterface;
 
- class MovieBudgetCompareEvent extends Event{
-   public const NAME = 'movie.movie_budget_compare';
+use symfony\Contracts\EventDispatcher\Event;
+use Drupal\node\NodeInterface;
 
-   protected NodeInterface $node;
+/**
+ *
+ */
+class MovieBudgetCompareEvent extends Event {
+  public const NAME = 'movie.movie_budget_compare';
 
-   public function __construct(NodeInterface $node){
+  protected NodeInterface $node;
+
+  public function __construct(NodeInterface $node) {
     $this->node = $node;
-   }
-   public function getNode():NodeInterface{
-    return $this->node;
-   }
+  }
 
- }
+  /**
+   *
+   */
+  public function getNode():NodeInterface {
+    return $this->node;
+  }
+
+}

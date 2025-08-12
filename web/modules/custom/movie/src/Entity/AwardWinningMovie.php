@@ -33,15 +33,20 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * )
  */
 class AwardWinningMovie extends ConfigEntityBase {
-  /** @var string */
+  /**
+   * @var string */
   public $id;
 
-  /** @var string */
+  /**
+   * @var string */
   public $label;
 
-  /** @var int */
+  /**
+   * @var int */
   public $year;
 
-  /** @var string */
+  /**
+   * @var string */
   public $movie;
+
 }

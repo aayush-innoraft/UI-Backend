@@ -1,0 +1,5 @@
+name: 'MovieContent API Expose'
+type: module
+description: 'Provides an api for exposing all content types related to movies in Json format.'
+core_version_requirement: ^9 || ^10
+package: Custom

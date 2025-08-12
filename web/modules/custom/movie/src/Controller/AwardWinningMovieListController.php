@@ -1,9 +1,9 @@
 <?php
+
 namespace Drupal\movie\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Provides a list controller for Award Winning Movie config entity.
@@ -33,4 +33,5 @@ class AwardWinningMovieListController extends ConfigEntityListBuilder {
     $row += parent::buildRow($entity);
     return $row;
   }
+
 }

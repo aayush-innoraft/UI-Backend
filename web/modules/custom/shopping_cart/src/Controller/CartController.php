@@ -71,7 +71,7 @@ class CartController extends ControllerBase {
     }
 
     $session->set('shopping_cart', $cart);
-    $this->messenger()->addMessage("✅ {$products[$id]['name']} added to cart.");
+    $this->messenger()->addMessage(" {$products[$id]['name']} added to cart.");
 
     return new RedirectResponse('/shopping-cart/products');
   }
@@ -86,7 +86,7 @@ class CartController extends ControllerBase {
     if (isset($cart[$id])) {
       unset($cart[$id]);
       $session->set('shopping_cart', $cart);
-      $this->messenger()->addMessage("❌ Product removed from cart.");
+      $this->messenger()->addMessage(" Product removed from cart.");
     } else {
       $this->messenger()->addWarning("Product not found in cart.");
     }
@@ -118,7 +118,7 @@ class CartController extends ControllerBase {
 
           $remove_link = "/shopping-cart/remove/{$id}";
           $output .= "<li>{$name} - ₹{$price} x {$quantity} = <strong>₹{$item_total}</strong>
-            <a href='{$remove_link}' style='color:red; margin-left:10px;'>❌ Remove</a></li>";
+            <a href='{$remove_link}' style='color:red; margin-left:10px;'> Remove</a></li>";
         } else {
           $output .= "<li>Unknown item x {$quantity}</li>";
         }

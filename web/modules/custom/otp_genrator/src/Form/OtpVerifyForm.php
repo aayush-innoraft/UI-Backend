@@ -10,10 +10,16 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class OtpVerifyForm extends FormBase {
 
+  /**
+   *
+   */
   public function getFormId() {
     return 'otp_genrator_otp_verify_form';
   }
 
+  /**
+   *
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['otp'] = [
       '#type' => 'textfield',
@@ -29,10 +35,13 @@ class OtpVerifyForm extends FormBase {
     return $form;
   }
 
+  /**
+   *
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $entered_otp = $form_state->getValue('otp');
 
-    // Fixed: Use consistent tempstore service
+    // Fixed: Use consistent tempstore service.
     $tempstore = \Drupal::service('user.private_tempstore')->get('otp_genrator');
     $stored_otp = $tempstore->get('user_otp');
 
@@ -44,4 +53,5 @@ class OtpVerifyForm extends FormBase {
       \Drupal::messenger()->addError($this->t('Invalid or expired OTP.'));
     }
   }
+
 }
