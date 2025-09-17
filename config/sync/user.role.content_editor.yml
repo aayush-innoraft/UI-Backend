@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - node.type.article
+    - node.type.movie
     - node.type.page
     - taxonomy.vocabulary.tags
   module:
@@ -29,19 +30,27 @@ permissions:
   - 'access toolbar'
   - 'administer url aliases'
   - 'create article content'
+  - 'create movie content'
   - 'create page content'
   - 'create terms in tags'
   - 'create url aliases'
+  - 'delete any movie content'
   - 'delete article revisions'
+  - 'delete movie revisions'
   - 'delete own article content'
   - 'delete own files'
+  - 'delete own movie content'
   - 'delete own page content'
   - 'delete page revisions'
+  - 'edit any movie content'
   - 'edit own article content'
   - 'edit own comments'
+  - 'edit own movie content'
   - 'edit own page content'
   - 'edit terms in tags'
   - 'revert all revisions'
+  - 'revert movie revisions'
   - 'view all revisions'
+  - 'view movie revisions'
   - 'view own unpublished content'
   - 'view the administration theme'

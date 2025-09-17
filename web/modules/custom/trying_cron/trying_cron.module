@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 
 /**
  * Implements hook_cron().
  */
-
 function trying_cron_cron() {
   // Log the time when cron runs.
   \Drupal::logger('trying_cron')->notice('Running cron at @time', [
@@ -22,7 +25,7 @@ function trying_cron_cron() {
     $type->save();
     \Drupal::logger('trying_cron')->notice('Content type "tryCron" created.');
   }
-  
+
   // Create a node of type 'tryCron'.
   $node = Node::create([
     'type' => 'tryCron',

@@ -7,18 +7,23 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
-class CustomDataController extends ControllerBase
-{
-  public function showData()
-  {
+/**
+ *
+ */
+class CustomDataController extends ControllerBase {
+
+  /**
+   *
+   */
+  public function showData() {
     $header = [
       ['data' => $this->t('Full Name')],
       ['data' => $this->t('Phone Number')],
       ['data' => $this->t('Email')],
       ['data' => $this->t('Gender')],
     ];
-     
-    // If current user is admin, add the "Operations" column
+
+    // If current user is admin, add the "Operations" column.
     if ($this->currentUser()->hasPermission('administer site configuration')) {
       $header[] = ['data' => $this->t('Operations')];
     }
@@ -30,7 +35,7 @@ class CustomDataController extends ControllerBase
       ->execute();
 
     foreach ($result as $record) {
-      // Create a link to delete the record if the user has permission
+      // Create a link to delete the record if the user has permission.
       $delete_link = [];
       if ($this->currentUser()->hasPermission('administer site configuration')) {
         $delete_url = Url::fromRoute('custom_module.delete', ['id' => base64_encode($record->email)]);
@@ -60,9 +65,11 @@ class CustomDataController extends ControllerBase
     ];
   }
 
-  public function deleteData($email)
-  {
-    // Decode the email back from URL-safe format
+  /**
+   *
+   */
+  public function deleteData($email) {
+    // Decode the email back from URL-safe format.
     $decoded_email = base64_decode($email);
     $connection = Database::getConnection();
     $deleted = $connection->delete('custom_module')
@@ -70,9 +77,11 @@ class CustomDataController extends ControllerBase
       ->execute();
     if ($deleted) {
       $this->messenger()->addMessage($this->t('Record with email %email has been deleted.', ['%email' => $decoded_email]));
-    } else {
+    }
+    else {
       $this->messenger()->addError($this->t('Record with email %email was not found.', ['%email' => $decoded_email]));
     }
     return $this->redirect('custom_module.show_data');
   }
+
 }

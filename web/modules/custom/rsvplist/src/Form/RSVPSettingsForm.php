@@ -1,14 +1,13 @@
 <?php
 
-/**
- * Contains the settings form for administering the RSVP form.
- */
-
 namespace Drupal\rsvplist\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ *
+ */
 class RSVPSettingsForm extends ConfigFormBase {
 
   /**

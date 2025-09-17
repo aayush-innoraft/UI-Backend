@@ -4,6 +4,9 @@ namespace Drupal\custom_module\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
+/**
+ *
+ */
 class CampaignController extends ControllerBase {
 
   /**
@@ -20,4 +23,5 @@ class CampaignController extends ControllerBase {
       '#markup' => $this->t('The dynamic value is: @number', ['@number' => $number]),
     ];
   }
+
 }

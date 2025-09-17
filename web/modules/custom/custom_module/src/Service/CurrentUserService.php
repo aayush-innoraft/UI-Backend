@@ -4,6 +4,9 @@ namespace Drupal\custom_module\Service;
 
 use Drupal\Core\Session\AccountProxyInterface;
 
+/**
+ *
+ */
 class CurrentUserService {
 
   protected $currentUser;
@@ -12,6 +15,9 @@ class CurrentUserService {
     $this->currentUser = $currentUser;
   }
 
+  /**
+   *
+   */
   public function getUser() {
     return [
       'id' => $this->currentUser->id(),
@@ -19,4 +25,5 @@ class CurrentUserService {
       'roles' => $this->currentUser->getRoles(),
     ];
   }
+
 }

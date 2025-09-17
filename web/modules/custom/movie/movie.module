@@ -23,7 +23,7 @@ function movie_node_view(array &$build, NodeInterface $entity, EntityViewDisplay
     if (!$field->isEmpty()) {
       $movie_price = (float) $field->value;
 
-      $budget = (float) \Drupal::config('movie.settings')->get('budget');
+      $budget = (float) \Drupal::config(name: 'movie.settings')->get('budget');
 
       // Budget comparison text.
       if ($movie_price < $budget) {
@@ -85,7 +85,7 @@ function movie_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
     if ($query instanceof Sql) {
       \Drupal::logger('movie')->notice('movie_views_query_alter is correctly triggered for view "all_movies" and display "page_1".');
       $query->orderby = [];
-      $query->addOrderBy('node_field_data', 'title', 'ASC');
+      $query->addOrderBy('node_field_data', 'title', order: 'ASC');
     }
   }
 }

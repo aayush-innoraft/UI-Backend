@@ -1,12 +1,16 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 
-
-function testing_module_form_alter(&$form, FormStateInterface $form_state, $form_id)
-{
-    if ($form_id == 'node_movie_edit_form') {
-        $form['actions']['submit']['#value'] = \Drupal::translation()->translate("movie save karni hai ?");
-    }
+/**
+ *
+ */
+function testing_module_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_movie_edit_form') {
+    $form['actions']['submit']['#value'] = \Drupal::translation()->translate("movie save karni hai ?");
+  }
 }
-

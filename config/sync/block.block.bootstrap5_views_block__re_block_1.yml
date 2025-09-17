@@ -1,0 +1,33 @@
+uuid: c85d5ab3-9b17-4d46-aec4-9ecb16b2c329
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.re
+  module:
+    - node
+    - views
+  theme:
+    - bootstrap5
+id: bootstrap5_views_block__re_block_1
+theme: bootstrap5
+region: sidebar_first
+weight: -8
+provider: null
+plugin: 'views_block:re-block_1'
+settings:
+  id: 'views_block:re-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      movie: movie

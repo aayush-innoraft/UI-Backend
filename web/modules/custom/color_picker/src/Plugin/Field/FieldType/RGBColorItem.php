@@ -17,6 +17,9 @@ use Drupal\Core\TypedData\DataDefinition;
  */
 class RGBColorItem extends FieldItemBase {
 
+  /**
+   *
+   */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     return [
       'columns' => [
@@ -27,16 +30,23 @@ class RGBColorItem extends FieldItemBase {
     ];
   }
 
+  /**
+   *
+   */
   public function isEmpty() {
     return $this->get('r')->getValue() === NULL &&
            $this->get('g')->getValue() === NULL &&
            $this->get('b')->getValue() === NULL;
   }
 
+  /**
+   *
+   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['r'] = DataDefinition::create('integer')->setLabel('Red');
     $properties['g'] = DataDefinition::create('integer')->setLabel('Green');
     $properties['b'] = DataDefinition::create('integer')->setLabel('Blue');
     return $properties;
   }
+
 }

@@ -1,56 +1,59 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_schema().
  */
-function testing_module_schema()
-{
-    $schema['testing'] = [
-        'description' => 'Stores RSVP information: node ID, name, surname, and timestamp.',
-        'fields' => [
-            'id' => [
-                'description' => 'The primary identifier for the record.',
-                'type' => 'serial',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ],
-            'nid' => [
-                'description' => 'The {node}.nid for this RSVP.',
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ],
-            'name' => [
-                'description' => 'User\'s first name.',
-                'type' => 'varchar',
-                'length' => 64,
-                'not null' => FALSE,
-                'default' => '',
-            ],
-            'sur_name' => [
-                'description' => 'User\'s surname.',
-                'type' => 'varchar',
-                'length' => 64,
-                'not null' => FALSE,
-                'default' => '',
-            ],
-            'email' => [
-                'description' => 'User\'s email address.',
-                'type' => 'varchar',
-                'length' => 128,
-                'not null' => TRUE,
+function testing_module_schema() {
+  $schema['testing'] = [
+    'description' => 'Stores RSVP information: node ID, name, surname, and timestamp.',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for the record.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'nid' => [
+        'description' => 'The {node}.nid for this RSVP.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'name' => [
+        'description' => 'User\'s first name.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'sur_name' => [
+        'description' => 'User\'s surname.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+      'email' => [
+        'description' => 'User\'s email address.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
 
-            ],
-            'created' => [
-                'description' => 'Timestamp when the RSVP was created.',
-                'type' => 'int',
-                'not null' => TRUE,
-                'default' => 0,
-            ],
-        ],
-        'primary key' => ['id'],
-    ];
+      ],
+      'created' => [
+        'description' => 'Timestamp when the RSVP was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
 
-    return $schema;
+  return $schema;
 }

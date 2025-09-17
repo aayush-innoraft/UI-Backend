@@ -4,27 +4,32 @@ namespace Drupal\custom_module\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Exception;
 
-class CustomForm extends FormBase
-{
+/**
+ *
+ */
+class CustomForm extends FormBase {
 
-  public function getFormId()
-  {
+  /**
+   *
+   */
+  public function getFormId() {
     return 'custom_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames()
-  {
+  protected function getEditableConfigNames() {
     return [
       'custom_module.admin_settings',
     ];
   }
-  public function buildForm(array $form, FormStateInterface $form_state)
-  {
+
+  /**
+   *
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $node = \Drupal::routeMatch()->getParameter('node');
     $nid = $node ? $node->id() : 0;
 
@@ -69,8 +74,10 @@ class CustomForm extends FormBase
     return $form;
   }
 
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     $email = $form_state->getValue('EmailID');
     $phone_number = $form_state->getValue('PhoneNumber');
 
@@ -99,32 +106,35 @@ class CustomForm extends FormBase
     }
   }
 
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  /**
+   *
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     // $this->messenger()->addMessage($this->t('Form submitted!'));
-
     try {
       $fullname = $form_state->getValue('FullName');
       $phone_number = $form_state->getValue('PhoneNumber');
-      $email  = $form_state->getValue('EmailID');
+      $email = $form_state->getValue('EmailID');
       $gender = $form_state->getValue('gender');
       $querry = \Drupal::database()->insert('custom_module');
       $querry->fields([
         'full_name',
         'phone_number',
         'email',
-        'gender'
+        'gender',
       ]);
       $querry->values([
         $fullname,
         $phone_number,
         $email,
-        $gender
+        $gender,
       ]);
       $querry->execute();
       \Drupal::messenger()->addMessage($this->t('thanks for form submision'));
-    } catch (Exception $e) {
+    }
+    catch (\Exception $e) {
       \Drupal::messenger()->addMessage($this->t('form not filled try again'));
     }
   }
+
 }

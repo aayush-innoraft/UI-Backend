@@ -14,6 +14,10 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class RGBHexWidget extends WidgetBase {
+
+  /**
+   *
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $hex_value = sprintf("#%02x%02x%02x", $items[$delta]->r ?? 0, $items[$delta]->g ?? 0, $items[$delta]->b ?? 0);
 
@@ -26,4 +30,5 @@ class RGBHexWidget extends WidgetBase {
 
     return $element;
   }
+
 }

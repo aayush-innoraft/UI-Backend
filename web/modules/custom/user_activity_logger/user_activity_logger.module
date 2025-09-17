@@ -1,71 +1,69 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_user_login().
  */
-function user_activity_logger_user_login(AccountInterface $account)
-{
-    _user_activity_logger_log($account, 'login');
+function user_activity_logger_user_login(AccountInterface $account) {
+  _user_activity_logger_log($account, 'login');
 }
 
 /**
  * Implements hook_user_logout().
  */
-function user_activity_logger_user_logout(AccountInterface $account)
-{
-    _user_activity_logger_log($account, 'logout');
+function user_activity_logger_user_logout(AccountInterface $account) {
+  _user_activity_logger_log($account, 'logout');
 }
 
 /**
  * Implements hook_entity_insert().
  */
-function user_activity_logger_entity_insert(EntityInterface $entity)
-{
-    $account = \Drupal::currentUser();
-    _user_activity_logger_log($account, 'entity_insert', $entity);
+function user_activity_logger_entity_insert(EntityInterface $entity) {
+  $account = \Drupal::currentUser();
+  _user_activity_logger_log($account, 'entity_insert', $entity);
 }
 
 /**
  * Implements hook_entity_update().
  */
-function user_activity_logger_entity_update(EntityInterface $entity)
-{
-    $account = \Drupal::currentUser();
-    _user_activity_logger_log($account, 'entity_update', $entity);
+function user_activity_logger_entity_update(EntityInterface $entity) {
+  $account = \Drupal::currentUser();
+  _user_activity_logger_log($account, 'entity_update', $entity);
 }
 
 /**
  * Implements hook_entity_delete().
  */
-function user_activity_logger_entity_delete(EntityInterface $entity)
-{
-    $account = \Drupal::currentUser();
-    _user_activity_logger_log($account, 'entity_delete', $entity);
+function user_activity_logger_entity_delete(EntityInterface $entity) {
+  $account = \Drupal::currentUser();
+  _user_activity_logger_log($account, 'entity_delete', $entity);
 }
 
 /**
  * Centralized logging function.
  */
-function _user_activity_logger_log(AccountInterface $account, $action, ?EntityInterface $entity = NULL)
-{
-    $fields = [
-        'uid' => $account->id(),
-        'action' => $action,
-        'timestamp' => \Drupal::time()->getCurrentTime(),
-        'ip_address' => \Drupal::request()->getClientIp(),
-        'entity_type' => NULL,
-        'entity_id' => NULL,
-    ];
+function _user_activity_logger_log(AccountInterface $account, $action, ?EntityInterface $entity = NULL) {
+  $fields = [
+    'uid' => $account->id(),
+    'action' => $action,
+    'timestamp' => \Drupal::time()->getCurrentTime(),
+    'ip_address' => \Drupal::request()->getClientIp(),
+    'entity_type' => NULL,
+    'entity_id' => NULL,
+  ];
 
-    if ($entity) {
-        $fields['entity_type'] = $entity->getEntityTypeId();
-        $fields['entity_id'] = $entity->id();
-    }
+  if ($entity) {
+    $fields['entity_type'] = $entity->getEntityTypeId();
+    $fields['entity_id'] = $entity->id();
+  }
 
-    \Drupal::database()->insert('user_activity_log')
-        ->fields($fields)
-        ->execute();
+  \Drupal::database()->insert('user_activity_log')
+    ->fields($fields)
+    ->execute();
 }

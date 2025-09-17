@@ -1,6 +1,6 @@
 <?php
-// recipie_book/src/Controller/RecipieBookController.php
 
+// recipie_book/src/Controller/RecipieBookController.php.
 namespace Drupal\recipie_book\Controller;
 
 use Drupal\node\NodeInterface;
@@ -11,41 +11,40 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Controller for the Recipe Book module.
  */
-class RecipieBookController extends ControllerBase
-{
+class RecipieBookController extends ControllerBase {
   /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
   /**
    * Constructs a new RecipeBookController object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   * The entity type manager.
+   *   The entity type manager.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager)
-  {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
   }
+
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container)
-  {
+  public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager')
     );
   }
+
   /**
    * Builds the recipe listing page.
    *
    * @return array
-   * A render array for the recipe listing page.
+   *   A render array for the recipe listing page.
    */
-  public function listpage()
-  {
+  public function listpage() {
     $node_storage = $this->entityTypeManager->getStorage('node');
     $query = $node_storage->getQuery()
       ->condition('status', 1)
@@ -59,7 +58,8 @@ class RecipieBookController extends ControllerBase
       if ($recipe instanceof NodeInterface) {
         $rows[] = [
           'data' => [
-            $recipe->toLink(), // Title as a link.
+        // Title as a link.
+            $recipe->toLink(),
             \Drupal::service('date.formatter')->format($recipe->getCreatedTime(), 'short'),
             $recipe->getOwner()->getDisplayName(),
           ],
@@ -84,4 +84,5 @@ class RecipieBookController extends ControllerBase
       ],
     ];
   }
+
 }

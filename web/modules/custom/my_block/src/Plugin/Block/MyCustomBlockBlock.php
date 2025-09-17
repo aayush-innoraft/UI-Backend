@@ -18,8 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Custom"),
  * )
  */
-final class MyCustomBlockBlock extends BlockBase implements ContainerFactoryPluginInterface
-{
+final class MyCustomBlockBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * Constructs the plugin instance.
@@ -36,8 +35,7 @@ final class MyCustomBlockBlock extends BlockBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self
-  {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     return new self(
       $configuration,
       $plugin_id,
@@ -49,8 +47,7 @@ final class MyCustomBlockBlock extends BlockBase implements ContainerFactoryPlug
   /**
    * {@inheritdoc}
    */
-  public function build(): array
-  {
+  public function build(): array {
     $current_user = \Drupal::currentUser();
     $roles = $current_user->getRoles();
     $role = !empty($roles) ? ucfirst($roles[0]) : 'User';
@@ -60,4 +57,5 @@ final class MyCustomBlockBlock extends BlockBase implements ContainerFactoryPlug
     ];
     return $build;
   }
+
 }

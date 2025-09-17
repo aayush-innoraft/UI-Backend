@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_mail().
  */
 function otp_genrator_mail($key, &$message, $params) {

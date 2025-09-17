@@ -13,6 +13,10 @@ use Drupal\Core\Field\FormatterBase;
  * )
  */
 class RGBBackgroundFormatter extends FormatterBase {
+
+  /**
+   *
+   */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     foreach ($items as $delta => $item) {
@@ -23,4 +27,5 @@ class RGBBackgroundFormatter extends FormatterBase {
     }
     return $elements;
   }
+
 }

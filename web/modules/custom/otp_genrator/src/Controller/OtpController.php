@@ -2,41 +2,52 @@
 
 namespace Drupal\otp_genrator\Controller;
 
+use Drupal\user\Entity\User;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\otp_genrator\Service\OtpService;
 
+/**
+ *
+ */
 class OtpController extends ControllerBase {
-    protected $otpService;
+  protected $otpService;
 
-    public function __construct(OtpService $otpService){
-        $this->otpService =  $otpService;
+  public function __construct(OtpService $otpService) {
+    $this->otpService = $otpService;
+  }
+
+  /**
+   *
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+          $container->get('otp_genrator.otp_service')
+      );
+  }
+
+  /**
+   *
+   */
+  public function genrateAndSendOtp() {
+    $otp = $this->otpService->generateOtp();
+
+    $user = \Drupal::currentUser();
+    $account = User::load($user->id());
+    $email = $account ? $account->getEmail() : '';
+
+    if (!$email) {
+      return new JsonResponse(['message' => 'User email not found.'], 400);
     }
 
-    public static function create(ContainerInterface $container){
-        return new static(
-            $container->get('otp_genrator.otp_service')
-        );
-    }
+    // Store OTP in tempstore.
+    $tempstore = \Drupal::service('user.private_tempstore')->get('otp_genrator');
+    $tempstore->set('user_otp', $otp);
 
-    public function genrateAndSendOtp(){
-        $otp = $this->otpService->generateOtp();
+    $this->otpService->sendOtpEmail($email, $otp);
 
-        $user = \Drupal::currentUser();
-        $account = \Drupal\user\Entity\User::load($user->id());
-        $email = $account ? $account->getEmail() : '';
+    return new JsonResponse(['message' => 'OTP sent!', 'otp' => $otp]);
+  }
 
-        if (!$email) {
-            return new JsonResponse(['message' => 'User email not found.'], 400);
-        }
-
-        // Store OTP in tempstore
-        $tempstore = \Drupal::service('user.private_tempstore')->get('otp_genrator');
-        $tempstore->set('user_otp', $otp);
-
-        $this->otpService->sendOtpEmail($email, $otp);
-
-        return new JsonResponse(['message' => 'OTP sent!', 'otp' => $otp]);
-    }
 }

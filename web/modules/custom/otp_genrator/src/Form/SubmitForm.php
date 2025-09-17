@@ -7,7 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\otp_genrator\Service\OtpService;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\user\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;  // Added missing import
+// Added missing import.
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides an OTP generator form.
@@ -22,17 +23,29 @@ final class SubmitForm extends FormBase {
     $this->currentUser = $currentUser;
   }
 
-  public static function create(ContainerInterface $container) {  // Added type hint
+  // Added type hint.
+
+  /**
+   *
+   */
+  public static function create(ContainerInterface $container) {
+
     return new static(
       $container->get('otp_genrator.otp_service'),
       $container->get('current_user')
     );
   }
 
+  /**
+   *
+   */
   public function getFormId(): string {
     return 'otp_genrator_example';
   }
 
+  /**
+   *
+   */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['generate_otp'] = [
       '#type' => 'button',
@@ -52,6 +65,9 @@ final class SubmitForm extends FormBase {
     return $form;
   }
 
+  /**
+   *
+   */
   public function generateOtpCallback(array &$form, FormStateInterface $form_state) {
     try {
       $otp = $this->otpService->generateOtp();
@@ -61,7 +77,7 @@ final class SubmitForm extends FormBase {
       $tempstore->set('user_otp', $otp);
 
       $account = User::load($this->currentUser->id());
-      
+
       if ($account && $account->getEmail()) {
         $email = $account->getEmail();
         $this->otpService->sendOtpEmail($email, $otp);
@@ -80,5 +96,9 @@ final class SubmitForm extends FormBase {
     return $form['otp_message'];
   }
 
+  /**
+   *
+   */
   public function submitForm(array &$form, FormStateInterface $form_state): void {}
+
 }

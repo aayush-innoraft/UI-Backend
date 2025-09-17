@@ -1,60 +1,63 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_schema().
  */
-function user_activity_logger_schema()
-{
-    $schema['user_activity_log'] = [
-        'description' => 'Stores logs of user activities.',
-        'fields' => [
-            'id' => [
-                'description' => 'Primary Key',
-                'type' => 'serial',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ],
-            'uid' => [
-                'description' => 'User ID',
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ],
-            'action' => [
-                'description' => 'Action performed',
-                'type' => 'varchar',
-                'length' => 64,
-                'not null' => TRUE,
-            ],
-            'entity_type' => [
-                'type' => 'varchar',
-                'length' => 64,
-                'not null' => FALSE,
-            ],
-            'entity_id' => [
-                'type' => 'int',
-                'not null' => FALSE,
-            ],
+function user_activity_logger_schema() {
+  $schema['user_activity_log'] = [
+    'description' => 'Stores logs of user activities.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'action' => [
+        'description' => 'Action performed',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ],
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
 
-            'ip_address' => [
-                'description' => 'IP address',
-                'type' => 'varchar',
-                'length' => 64,
-                'not null' => FALSE,
-            ],
-            'timestamp' => [
-                'description' => 'Timestamp of action',
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ],
-        ],
-        'primary key' => ['id'],
-        'indexes' => [
-            'uid' => ['uid'],
-            'timestamp' => ['timestamp'],
-        ],
-    ];
+      'ip_address' => [
+        'description' => 'IP address',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => FALSE,
+      ],
+      'timestamp' => [
+        'description' => 'Timestamp of action',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'uid' => ['uid'],
+      'timestamp' => ['timestamp'],
+    ],
+  ];
 
-    return $schema;
+  return $schema;
 }

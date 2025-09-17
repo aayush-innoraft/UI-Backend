@@ -11,4 +11,3 @@ rsvplist.report_links:
   route_name: rsvplist.report  
   parent: system.admin_reports
   weight: -5
-

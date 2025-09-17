@@ -9,7 +9,7 @@ dependencies:
 id: bootstrap5_shoppingcartblock
 theme: bootstrap5
 region: sidebar_second
-weight: 0
+weight: -8
 provider: null
 plugin: shopping_cart_block
 settings:
