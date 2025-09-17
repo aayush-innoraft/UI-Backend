@@ -6,6 +6,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ *
+ */
 class CartController extends ControllerBase {
 
   /**
@@ -66,7 +69,8 @@ class CartController extends ControllerBase {
     // Add or update product quantity.
     if (!isset($cart[$id])) {
       $cart[$id] = 1;
-    } else {
+    }
+    else {
       $cart[$id]++;
     }
 
@@ -87,7 +91,8 @@ class CartController extends ControllerBase {
       unset($cart[$id]);
       $session->set('shopping_cart', $cart);
       $this->messenger()->addMessage(" Product removed from cart.");
-    } else {
+    }
+    else {
       $this->messenger()->addWarning("Product not found in cart.");
     }
 
@@ -107,7 +112,8 @@ class CartController extends ControllerBase {
 
     if (empty($cart)) {
       $output .= "<p>Your cart is empty.</p>";
-    } else {
+    }
+    else {
       $output .= "<ul>";
       foreach ($cart as $id => $quantity) {
         if (isset($products[$id])) {
@@ -119,7 +125,8 @@ class CartController extends ControllerBase {
           $remove_link = "/shopping-cart/remove/{$id}";
           $output .= "<li>{$name} - ₹{$price} x {$quantity} = <strong>₹{$item_total}</strong>
             <a href='{$remove_link}' style='color:red; margin-left:10px;'> Remove</a></li>";
-        } else {
+        }
+        else {
           $output .= "<li>Unknown item x {$quantity}</li>";
         }
       }
